@@ -2,16 +2,17 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import pages.LoginPage;
-import pages.ProjectPage;
-import pages.ProjectsListPage;
+import lombok.extern.log4j.Log4j2;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
+import pages.*;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+@Log4j2
+@Listeners(TestListener.class)
 public class BaseTest {
 
     Faker faker;
@@ -19,15 +20,23 @@ public class BaseTest {
     ProjectsListPage projectsListPage;
     ProjectPage projectPage;
 
-    @BeforeMethod
-    public void setup() {
-        Configuration.browser = "chrome";
+    @Parameters({"browser"})
+    @BeforeMethod(description = "Browser setup")
+    public void setup(@Optional("chrome") String browser, ITestContext iTestContext) {
+        log.info("Setup '{}' browser", browser);
+        if (browser.equalsIgnoreCase("chrome")) {
+            Configuration.browser = "chrome";
+
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            Configuration.browser = "firefox";
+        }
         Configuration.headless = false;
         Configuration.timeout = 10000;
         Configuration.holdBrowserOpen = true;
         Configuration.baseUrl = PropertyReader.getProperty("sf.base.url");
         open();
         getWebDriver().manage().window().maximize();
+        iTestContext.setAttribute("driver", getWebDriver());
 
         faker = new Faker();
         loginPage = new LoginPage();
@@ -37,7 +46,7 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void close() {
-        if (getWebDriver()!= null){
+        if (getWebDriver() != null) {
             getWebDriver().quit();
         }
     }
