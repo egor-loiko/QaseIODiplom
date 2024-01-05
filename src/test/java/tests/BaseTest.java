@@ -5,8 +5,11 @@ import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-import pages.*;
+import pages.LoginPage;
+import pages.ProjectPage;
+import pages.ProjectsListPage;
 import utils.PropertyReader;
+import utils.TestListener;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;

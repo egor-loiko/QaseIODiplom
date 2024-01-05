@@ -2,7 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="2" name="QaseIO CrossBrowser Test" parallel="tests">
     <listeners>
-        <listener class-name="tests.TestListener"></listener>
+        <listener class-name="utils.TestListener"></listener>
+        <listener class-name="utils.AnnotationTransformer"></listener>
     </listeners>
     <test name="Chrome">
         <classes>

@@ -3,6 +3,8 @@ package tests;
 import org.testng.annotations.Test;
 import utils.PropertyReader;
 
+import static org.testng.Assert.assertTrue;
+
 public class LoginTest extends BaseTest {
 
     @Test(description = "user should be logged in")
@@ -10,5 +12,6 @@ public class LoginTest extends BaseTest {
         loginPage.openPage();
         loginPage.login(System.getProperty("user", PropertyReader.getProperty("sf.user")), System.getProperty("password", PropertyReader.getProperty("sf.password")));
         projectsListPage.waitTillOpened();
+        assertTrue(false);
     }
 }

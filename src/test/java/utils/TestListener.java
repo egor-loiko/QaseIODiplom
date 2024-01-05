@@ -1,4 +1,4 @@
-package tests;
+package utils;
 
 import io.qameta.allure.Attachment;
 import lombok.extern.log4j.Log4j2;
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @Log4j2
-public class TestListener implements ITestListener{
+public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
