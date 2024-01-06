@@ -8,11 +8,13 @@ import org.testng.annotations.*;
 import pages.LoginPage;
 import pages.ProjectPage;
 import pages.ProjectsListPage;
+import pages.SuitesPage;
 import utils.PropertyReader;
 import utils.TestListener;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 
 @Log4j2
 @Listeners(TestListener.class)
@@ -22,6 +24,7 @@ public class BaseTest {
     LoginPage loginPage;
     ProjectsListPage projectsListPage;
     ProjectPage projectPage;
+    SuitesPage suitesPage;
 
     @Parameters({"browser"})
     @BeforeMethod(description = "Browser setup")
@@ -45,6 +48,7 @@ public class BaseTest {
         loginPage = new LoginPage();
         projectsListPage = new ProjectsListPage();
         projectPage = new ProjectPage();
+        suitesPage = new SuitesPage();
     }
 
     @AfterMethod(alwaysRun = true)

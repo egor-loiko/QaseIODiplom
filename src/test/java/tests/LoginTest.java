@@ -6,6 +6,7 @@ import utils.PropertyReader;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+
 public class LoginTest extends BaseTest {
 
     @Test(description = "user should be logged in")

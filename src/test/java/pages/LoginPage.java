@@ -8,6 +8,7 @@ import utils.PropertyReader;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
+
 @Log4j2
 public class LoginPage {
 
@@ -20,8 +21,8 @@ public class LoginPage {
 
     @Step("Open Login page")
     public void openPage() {
+        log.info("Opening Login page '{}'", PropertyReader.getProperty("sf.base.url") + "/login");
         open("/login");
-        log.info("Open Login page '{}'", PropertyReader.getProperty("sf.base.url") + "/login");
     }
 
     @Step("Login by user '{user}' with password '{password}'")
@@ -35,21 +36,21 @@ public class LoginPage {
     @Step("Getting error message for 'Email' field")
     public String getEmailErrorMessage() {
         String emailFieldErrorMessage = $(EMAIL_ERROR_MESSAGE).getText();
-        log.info("Error message '{}' for Email field has been got", emailFieldErrorMessage);
+        log.info("Getting error message '{}' for Email field", emailFieldErrorMessage);
         return emailFieldErrorMessage;
     }
 
     @Step("Getting error message for 'Password' field")
     public String getPasswordErrorMessage() {
         String passwordFieldErrorMessage = $(PASSWORD_ERROR_MESSAGE).getText();
-        log.info("Error message '{}' for Password field has been got", passwordFieldErrorMessage);
+        log.info("Getting error message '{}' for Password", passwordFieldErrorMessage);
         return passwordFieldErrorMessage;
     }
 
     @Step("Getting alert message text")
     public String getAlertMessageText() {
         String alertMessageText = $(ALERT_MESSAGE).getText();
-        log.info("Alert message text '{}' for invalid login has been got", alertMessageText);
+        log.info("Getting alert message text '{}' for invalid login", alertMessageText);
         return alertMessageText;
     }
 }

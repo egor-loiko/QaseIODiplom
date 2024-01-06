@@ -8,11 +8,13 @@
     <test name="Thread #1">
         <classes>
             <class name="tests.LoginTest"/>
+            <class name="tests.SuiteTest"/>
         </classes>
     </test> <!-- Test -->
     <test name="Thread #2">
         <classes>
             <class name="tests.ProjectTest"/>
+            <class name="tests.TestCaseTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>

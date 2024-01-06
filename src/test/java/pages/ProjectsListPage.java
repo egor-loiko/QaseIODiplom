@@ -7,9 +7,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.PropertyReader;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 
 @Log4j2
 public class ProjectsListPage {
@@ -27,32 +30,33 @@ public class ProjectsListPage {
 
 
     public void openPage() {
+        log.info("Opening Login page '{}'", PropertyReader.getProperty("sf.base.url") + "/projects");
         open("/projects");
-        log.info("Open Login page '{}'", PropertyReader.getProperty("sf.base.url") + "/projects");
     }
 
     @Step("Wait for possibility to create new project")
     public void waitTillOpened() {
+        log.info("Checking possibility to create new project");
         $(CREATE_NEW_PROJECT_BUTTON).shouldBe(Condition.visible);
-        log.info("It's possible to create new project");
     }
 
     @Step("Is Projects page opened")
     public boolean isProjectsPageOpened() {
+        log.info("Checking is Projects page opened");
         boolean isProjectLabelDisplayed = $(PROJECTS_LABEL).isDisplayed();
-        log.info("Projects page is opened");
         return isProjectLabelDisplayed;
     }
 
     @Step("Creating new project with Name '{projectName}', Code '{projectCode}' and Description '{description}'")
     public void createNewProject(String projectName, String projectCode, String description) {
+        log.info("Creating new project with Name '{}', Code '{}' and Description '{}'", projectName, projectCode, description);
         $(CREATE_NEW_PROJECT_BUTTON).click();
         $(PROJECT_NAME_CSS).sendKeys(projectName);
+        $(DESCRIPTION_CSS).sendKeys(description);
+        $(PROJECT_CODE_CSS).shouldBe(Condition.visible).click();
         $(PROJECT_CODE_CSS).clear();
         $(PROJECT_CODE_CSS).sendKeys(projectCode);
-        $(DESCRIPTION_CSS).sendKeys(description);
         $(CONFIRM_CREATE_PROJECT_BUTTON_CSS).click();
-        log.info("New project with Name '{}', Code '{}' and Description '{}' has been created", projectName, projectCode, description);
     }
 
     @Step("Is project with Name '{projectName} in the list of projects'")
@@ -70,16 +74,30 @@ public class ProjectsListPage {
 
     @Step("Opening project with Name '{projectName}'")
     public void openProject(String projectName) {
+        log.info("Opening project with Name '{}'", projectName);
         $(byText(projectName)).click();
-        log.info("Project with Name '{}' is opened", projectName);
     }
 
     @Step("Delete project with Name '{projectName}'")
     public void deleteProject(String projectName) {
+        log.info("Removing project with Name '{}'", projectName);
         $(By.xpath(String.format(ACTION_MENU_FOR_PROJECT, projectName))).click();
         $(DELETE_BUTTON).click();
         $(CONFIRM_DELETE_BUTTON).click();
-        log.info("Project with Name '{}' is deleted", projectName);
+    }
+
+    @Step("Getting validation message text for Project Name field")
+    public String gettingProjectNameFieldValidationMessage() {
+        String validationMessageText = $(PROJECT_NAME_CSS).getAttribute("validationMessage");
+        log.info("Getting validation message text '{}' for Project Name field", validationMessageText);
+        return validationMessageText;
+    }
+
+    @Step("Getting validation message text for Project Code field")
+    public String gettingProjectCodeFieldValidationMessage() {
+        String validationMessageText = $(PROJECT_CODE_CSS).getAttribute("validationMessage");
+        log.info("Getting validation message text '{}' for Project Code field", validationMessageText);
+        return validationMessageText;
     }
 
 }
