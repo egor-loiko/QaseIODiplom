@@ -12,7 +12,7 @@ public class ProjectTest extends BaseTest {
     public void projectShouldBeCreated() {
         String projectName = faker.name().lastName();
         loginPage.openPage();
-        loginPage.login(PropertyReader.getProperty("sf.user"), PropertyReader.getProperty("sf.password"));
+        loginPage.login(System.getProperty("user", PropertyReader.getProperty("sf.user")), System.getProperty("password", PropertyReader.getProperty("sf.password")));
         projectsListPage.waitTillOpened();
         projectsListPage.createNewProject(projectName, projectName, "test description");
         projectPage.waitTillProjectCreated();
@@ -23,7 +23,7 @@ public class ProjectTest extends BaseTest {
     public void projectShouldBeDeleted() {
         String projectName = faker.name().lastName();
         loginPage.openPage();
-        loginPage.login(PropertyReader.getProperty("sf.user"), PropertyReader.getProperty("sf.password"));
+        loginPage.login(System.getProperty("user", PropertyReader.getProperty("sf.user")), System.getProperty("password", PropertyReader.getProperty("sf.password")));
         projectsListPage.waitTillOpened();
         projectsListPage.createNewProject(projectName, projectName, "test description");
         projectPage.waitTillProjectCreated();
@@ -37,7 +37,7 @@ public class ProjectTest extends BaseTest {
         String projectName = faker.name().lastName();
         String suiteName = faker.name().firstName();
         loginPage.openPage();
-        loginPage.login(PropertyReader.getProperty("sf.user"), PropertyReader.getProperty("sf.password"));
+        loginPage.login(System.getProperty("user", PropertyReader.getProperty("sf.user")), System.getProperty("password", PropertyReader.getProperty("sf.password")));
         projectsListPage.waitTillOpened();
         projectsListPage.createNewProject(projectName, projectName, "test description");
         projectPage.waitTillProjectCreated();

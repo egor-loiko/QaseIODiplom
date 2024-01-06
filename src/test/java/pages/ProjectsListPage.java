@@ -1,17 +1,22 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+@Log4j2
 public class ProjectsListPage {
 
     private final By CREATE_NEW_PROJECT_BUTTON = By.id("createButton");
     private final String PROJECT_NAME_CSS = "[id=project-name]";
+    private final By PROJECTS_LABEL = By.xpath("//h1[text()='Projects']");
     private final String PROJECT_CODE_CSS = "[id=project-code]";
     private final String DESCRIPTION_CSS = "[id=description-area]";
     private final String CONFIRM_CREATE_PROJECT_BUTTON_CSS = "[type=submit]";
@@ -23,12 +28,23 @@ public class ProjectsListPage {
 
     public void openPage() {
         open("/projects");
+        log.info("Open Login page '{}'", PropertyReader.getProperty("sf.base.url") + "/projects");
     }
 
+    @Step("Wait for possibility to create new project")
     public void waitTillOpened() {
         $(CREATE_NEW_PROJECT_BUTTON).shouldBe(Condition.visible);
+        log.info("It's possible to create new project");
     }
 
+    @Step("Is Projects page opened")
+    public boolean isProjectsPageOpened() {
+        boolean isProjectLabelDisplayed = $(PROJECTS_LABEL).isDisplayed();
+        log.info("Projects page is opened");
+        return isProjectLabelDisplayed;
+    }
+
+    @Step("Creating new project with Name '{projectName}', Code '{projectCode}' and Description '{description}'")
     public void createNewProject(String projectName, String projectCode, String description) {
         $(CREATE_NEW_PROJECT_BUTTON).click();
         $(PROJECT_NAME_CSS).sendKeys(projectName);
@@ -36,26 +52,34 @@ public class ProjectsListPage {
         $(PROJECT_CODE_CSS).sendKeys(projectCode);
         $(DESCRIPTION_CSS).sendKeys(description);
         $(CONFIRM_CREATE_PROJECT_BUTTON_CSS).click();
+        log.info("New project with Name '{}', Code '{}' and Description '{}' has been created", projectName, projectCode, description);
     }
 
+    @Step("Is project with Name '{projectName} in the list of projects'")
     public boolean isProjectInList(String projectName) {
         getWebDriver().navigate().refresh();
         for (WebElement element : $$(PROJECTS_LIST)) {
             System.out.println(element.getText());
             if (element.getText().equals(projectName))
-                return true;
+                log.info("Project with Name '{}' is in the list of projects", projectName);
+            return true;
         }
+        log.error("Project with Name '{}' is NOT in the list of projects", projectName);
         return false;
     }
 
+    @Step("Opening project with Name '{projectName}'")
     public void openProject(String projectName) {
         $(byText(projectName)).click();
+        log.info("Project with Name '{}' is opened", projectName);
     }
 
+    @Step("Delete project with Name '{projectName}'")
     public void deleteProject(String projectName) {
         $(By.xpath(String.format(ACTION_MENU_FOR_PROJECT, projectName))).click();
         $(DELETE_BUTTON).click();
         $(CONFIRM_DELETE_BUTTON).click();
+        log.info("Project with Name '{}' is deleted", projectName);
     }
 
 }
