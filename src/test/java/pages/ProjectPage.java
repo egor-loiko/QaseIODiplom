@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$$;
 @Log4j2
 public class ProjectPage {
 
-    private final By PROJECT_NAME_LABEL = By.xpath("//h1");
+    private final String PROJECT_NAME_LABEL = "//div[text()='%s']";
     private final By CREATE_NEW_SUITE_BUTTON = By.id("create-suite-button");
     private final By SUITE_NAME = By.id("title");
     private final By SUITE_DESCRIPTION = By.xpath("//label[text()='Description']/../..//p");
@@ -22,12 +22,7 @@ public class ProjectPage {
 
     @Step("Checking project with Name '{projectName} is created' ")
     public boolean isProjectCreated(String projectName) {
-        if ($(PROJECT_NAME_LABEL).getText().contains(projectName.toUpperCase())) {
-            log.info("Project with Name '{}' is created", projectName);
-            return true;
-        }
-        log.error("Project with Name '{}' is NOT created", projectName);
-        return false;
+        return !$$(By.xpath(String.format(PROJECT_NAME_LABEL, projectName))).isEmpty();
     }
 
     @Step("Waiting for project creation")

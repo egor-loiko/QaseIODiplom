@@ -1,9 +1,9 @@
 package tests;
 
 import org.testng.annotations.Test;
-import utils.PropertyReader;
 
 import static org.testng.Assert.*;
+import static utils.DataGenerator.generateProjectCode;
 import static utils.DataGenerator.generateProjectName;
 
 
@@ -12,21 +12,22 @@ public class ProjectTest extends BaseTest {
     @Test(description = "Create new project")
     public void projectShouldBeCreated() {
         String projectName = generateProjectName();
+        String projectCode = generateProjectCode();
         loginPage.openPage();
-        loginPage.login(System.getProperty("user", PropertyReader.getProperty("sf.user")), System.getProperty("password", PropertyReader.getProperty("sf.password")));
+        loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(projectName, projectName, "test description");
+        projectsListPage.createNewProject(projectName, projectCode, "test description");
         projectPage.waitTillProjectCreated();
         assertTrue(projectPage.isProjectCreated(projectName), "Project is not created");
     }
 
     @Test(description = "Create new project with Empty Project name")
     public void projectShouldNotBeCreatedEmptyProjectName() {
-        String projectName = generateProjectName();
+        String projectCode = generateProjectCode();
         loginPage.openPage();
-        loginPage.login(System.getProperty("user", PropertyReader.getProperty("sf.user")), System.getProperty("password", PropertyReader.getProperty("sf.password")));
+        loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject("", projectName, "test description");
+        projectsListPage.createNewProject("", projectCode, "test description");
         assertEquals(projectsListPage.gettingProjectNameFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
     }
 
@@ -34,7 +35,7 @@ public class ProjectTest extends BaseTest {
     public void projectShouldNotBeCreatedEmptyProjectCode() {
         String projectName = generateProjectName();
         loginPage.openPage();
-        loginPage.login(System.getProperty("user", PropertyReader.getProperty("sf.user")), System.getProperty("password", PropertyReader.getProperty("sf.password")));
+        loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
         projectsListPage.createNewProject(projectName, "", "test description");
         assertEquals(projectsListPage.gettingProjectCodeFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
@@ -43,10 +44,11 @@ public class ProjectTest extends BaseTest {
     @Test(description = "Remove existing project")
     public void projectShouldBeDeleted() {
         String projectName = generateProjectName();
+        String projectCode = generateProjectCode();
         loginPage.openPage();
-        loginPage.login(System.getProperty("user", PropertyReader.getProperty("sf.user")), System.getProperty("password", PropertyReader.getProperty("sf.password")));
+        loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(projectName, projectName, "test description");
+        projectsListPage.createNewProject(projectName, projectCode, "test description");
         projectPage.waitTillProjectCreated();
         projectsListPage.openPage();
         projectsListPage.deleteProject(projectName);

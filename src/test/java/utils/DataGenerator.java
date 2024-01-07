@@ -7,11 +7,15 @@ import lombok.extern.log4j.Log4j2;
 public class DataGenerator {
 
     private static Faker faker = new Faker();
-    private static int projectNameLimit = 10;
+    private static int projectCodeLimit = 10;
 
     public static String generateProjectName() {
-        String projectName = faker.name().lastName();
-        return projectName.length() > 10 ? projectName.substring(0, projectNameLimit) : projectName;
+        return faker.name().lastName();
+    }
+
+    public static String generateProjectCode() {
+        String projectCode = faker.name().lastName();
+        return projectCode.length() > 10 ? projectCode.substring(0, projectCodeLimit) : projectCode;
     }
 
     public static String generateSuiteName() {

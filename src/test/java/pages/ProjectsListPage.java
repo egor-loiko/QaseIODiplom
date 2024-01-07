@@ -7,8 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.PropertyReader;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -30,7 +28,7 @@ public class ProjectsListPage {
 
 
     public void openPage() {
-        log.info("Opening Login page '{}'", PropertyReader.getProperty("sf.base.url") + "/projects");
+        log.info("Opening Login page '{}'", PropertyReader.getProperty("qaseio.base.url") + "/projects");
         open("/projects");
     }
 
@@ -43,8 +41,7 @@ public class ProjectsListPage {
     @Step("Is Projects page opened")
     public boolean isProjectsPageOpened() {
         log.info("Checking is Projects page opened");
-        boolean isProjectLabelDisplayed = $(PROJECTS_LABEL).isDisplayed();
-        return isProjectLabelDisplayed;
+        return $(PROJECTS_LABEL).isDisplayed();
     }
 
     @Step("Creating new project with Name '{projectName}', Code '{projectCode}' and Description '{description}'")

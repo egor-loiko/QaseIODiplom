@@ -21,7 +21,7 @@ public class LoginPage {
 
     @Step("Open Login page")
     public void openPage() {
-        log.info("Opening Login page '{}'", PropertyReader.getProperty("sf.base.url") + "/login");
+        log.info("Opening Login page '{}'", PropertyReader.getProperty("qaseio.base.url") + "/login");
         open("/login");
     }
 

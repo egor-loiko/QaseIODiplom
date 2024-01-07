@@ -3,7 +3,6 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
-import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.LoginPage;
 import pages.ProjectPage;
@@ -26,9 +25,12 @@ public class BaseTest {
     ProjectPage projectPage;
     SuitesPage suitesPage;
 
+    String validUser;
+    String validPassword;
+
     @Parameters({"browser"})
     @BeforeMethod(description = "Browser setup")
-    public void setup(@Optional("chrome") String browser, ITestContext iTestContext) {
+    public void setup(@Optional("chrome") String browser) {
         log.info("Setup '{}' browser", browser);
         if (browser.equalsIgnoreCase("chrome")) {
             Configuration.browser = "chrome";
@@ -39,16 +41,18 @@ public class BaseTest {
         Configuration.headless = false;
         Configuration.timeout = 10000;
         Configuration.holdBrowserOpen = true;
-        Configuration.baseUrl = PropertyReader.getProperty("sf.base.url");
+        Configuration.baseUrl = PropertyReader.getProperty("qaseio.base.url");
         open();
         getWebDriver().manage().window().maximize();
-        iTestContext.setAttribute("driver", getWebDriver());
 
         faker = new Faker();
         loginPage = new LoginPage();
         projectsListPage = new ProjectsListPage();
         projectPage = new ProjectPage();
         suitesPage = new SuitesPage();
+
+        validUser = System.getProperty("user", PropertyReader.getProperty("qaseio.user"));
+        validPassword = System.getProperty("password", PropertyReader.getProperty("qaseio.password"));
     }
 
     @AfterMethod(alwaysRun = true)

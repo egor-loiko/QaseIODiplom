@@ -11,6 +11,8 @@ import org.testng.ITestResult;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 
 @Log4j2
 public class TestListener implements ITestListener {
@@ -24,16 +26,14 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult iTestResult) {
         log.info("======================================== FINISHED TEST {} Duration: {} ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult));
-        WebDriver driver = (WebDriver) iTestResult.getTestContext().getAttribute("driver");
-        takeScreenshot(driver);
+        takeScreenshot(getWebDriver());
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         log.info("======================================== FAILED TEST {} Duration: {} ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult));
-        WebDriver driver = (WebDriver) iTestResult.getTestContext().getAttribute("driver");
-        takeScreenshot(driver);
+        takeScreenshot(getWebDriver());
     }
 
     @Override
