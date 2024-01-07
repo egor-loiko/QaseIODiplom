@@ -4,10 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.*;
-import pages.LoginPage;
-import pages.ProjectPage;
-import pages.ProjectsListPage;
-import pages.SuitesPage;
+import pages.*;
 import utils.PropertyReader;
 import utils.TestListener;
 
@@ -24,6 +21,7 @@ public class BaseTest {
     ProjectsListPage projectsListPage;
     ProjectPage projectPage;
     SuitesPage suitesPage;
+    TestCasePage testCasePage;
 
     String validUser;
     String validPassword;
@@ -50,6 +48,7 @@ public class BaseTest {
         projectsListPage = new ProjectsListPage();
         projectPage = new ProjectPage();
         suitesPage = new SuitesPage();
+        testCasePage = new TestCasePage();
 
         validUser = System.getProperty("user", PropertyReader.getProperty("qaseio.user"));
         validPassword = System.getProperty("password", PropertyReader.getProperty("qaseio.password"));

@@ -18,5 +18,9 @@ public class TestCaseTest extends BaseTest {
         projectPage.waitTillProjectCreated();
         projectPage.createNewSuite(suiteName, "test2", "test1");
         suitesPage.openCreateNewCasePage();
+        testCasePage.setCaseTitle("New test Case");
+        testCasePage.setDropdownValue("Status");
+
+
     }
 }
