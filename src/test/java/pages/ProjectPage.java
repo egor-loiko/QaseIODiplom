@@ -17,7 +17,6 @@ public class ProjectPage extends BasePage {
     private final By SUITE_NAME = By.id("title");
     private final By SUITE_DESCRIPTION = By.xpath("//label[text()='Description']/../..//p");
     private final By SUITE_PRECONDITIONS = By.xpath("//label[text()='Preconditions']/../..//p");
-    private final String CONFIRM_CREATE_SUITE_BUTTON_CSS = "[type=submit]";
 
     @Step("Checking project with Name '{projectName} is created' ")
     public boolean isProjectCreated(String projectName) {
@@ -33,12 +32,10 @@ public class ProjectPage extends BasePage {
     @Step("Creating new suite with Name '{projectName}', Description '{suiteDescription}' and Preconditions '{suitePreconditions}'")
     public void createNewSuite(String suiteName, String suiteDescription, String suitePreconditions) {
         log.info("Creating new suite with Name '{}', Description '{}' and Preconditions '{}'", suiteName, suiteDescription, suitePreconditions);
-        //  $(CREATE_NEW_SUITE_BUTTON).click();
         button.clickButton("Suite");
         $(SUITE_NAME).sendKeys(suiteName);
         $(SUITE_DESCRIPTION).sendKeys(suiteDescription);
         $(SUITE_PRECONDITIONS).sendKeys(suitePreconditions);
-        //   $(CONFIRM_CREATE_SUITE_BUTTON_CSS).click();
         button.clickButton("Create");
     }
 

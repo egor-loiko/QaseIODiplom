@@ -13,9 +13,8 @@ public class SuitesPage extends BasePage {
 
     private final String SUITE_NAME_IN_LIST = "//a[text()='%s']";
     private final By SUITES_LABEL = By.xpath("//span[text()='Suites']");
-
     private final String SUITE_PLUS_BUTTON_CSS = "[class='fas fa-plus']";
-    private final By CREATE_TEST_CASE_BUTTON = By.xpath("//a[text()='Create case']");
+    private final By ALERT_MESSAGE = By.xpath("//div[@role='alert']//span/span");
 
 
     @Step("Checking suite with Name '{suiteName}' is created")
@@ -32,6 +31,14 @@ public class SuitesPage extends BasePage {
     @Step("Opening create new test case page")
     public void openCreateNewCasePage() {
         $(SUITE_PLUS_BUTTON_CSS).click();
-        $(CREATE_TEST_CASE_BUTTON).click();
+        //$(CREATE_TEST_CASE_BUTTON).click();
+        button.clickButton("Create case");
+    }
+
+    @Step("Getting successful test case creation message text")
+    public String getTestCaseCreationMessageText() {
+        String alertMessageText = $(ALERT_MESSAGE).getText();
+        log.info("Getting message text '{}' for successful Test Case creation", alertMessageText);
+        return alertMessageText;
     }
 }

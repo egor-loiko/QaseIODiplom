@@ -21,4 +21,19 @@ public class TestCasePage extends BasePage {
         dropdown.selectValue(label, value);
     }
 
+    @Step("Adding Test Case step with Step Action '{stepAction}' Data '{data}' and Expected Result '{expectedResult}'")
+    public void addTcStep(String stepAction, String data, String expectedResult) {
+        log.info("Adding Test Case step with Step Action '{}' Data '{}' and Expected Result '{}'", stepAction, data, expectedResult);
+        button.clickButton("Add step");
+        stepField.fillInStepField("Step Action", stepAction);
+        stepField.fillInStepField("Data", data);
+        stepField.fillInStepField("Expected result", expectedResult);
+    }
+
+    @Step("Saving Test Case")
+    public void saveTestCase() {
+        log.info("Saving Test Case");
+        button.clickButton("Save");
+    }
+
 }

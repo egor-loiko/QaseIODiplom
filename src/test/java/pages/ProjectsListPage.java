@@ -20,10 +20,7 @@ public class ProjectsListPage extends BasePage {
     private final By PROJECTS_LABEL = By.xpath("//h1[text()='Projects']");
     private final String PROJECT_CODE_CSS = "[id=project-code]";
     private final String DESCRIPTION_CSS = "[id=description-area]";
-    private final String CONFIRM_CREATE_PROJECT_BUTTON_CSS = "[type=submit]";
     private final String ACTION_MENU_FOR_PROJECT = "//a[text()='%s']//ancestor::tr//span";
-    private final By DELETE_BUTTON = By.xpath("//button[@role='menuitem']");
-    private final By CONFIRM_DELETE_BUTTON = By.xpath("//span[text()='Delete project']");
     private final By PROJECTS_LIST = By.xpath("//div[@id='application-content']//tbody//tr//td[3]//a");
 
     public void openPage() {
@@ -46,14 +43,12 @@ public class ProjectsListPage extends BasePage {
     @Step("Creating new project with Name '{projectName}', Code '{projectCode}' and Description '{description}'")
     public void createNewProject(String projectName, String projectCode, String description) {
         log.info("Creating new project with Name '{}', Code '{}' and Description '{}'", projectName, projectCode, description);
-        //$(CREATE_NEW_PROJECT_BUTTON).click();
         button.clickButton("Create new project");
         $(PROJECT_NAME_CSS).sendKeys(projectName);
         $(DESCRIPTION_CSS).sendKeys(description);
         $(PROJECT_CODE_CSS).shouldBe(Condition.visible).click();
         $(PROJECT_CODE_CSS).clear();
         $(PROJECT_CODE_CSS).sendKeys(projectCode);
-        //$(CONFIRM_CREATE_PROJECT_BUTTON_CSS).click();
         button.clickButton("Create project");
     }
 
@@ -80,10 +75,8 @@ public class ProjectsListPage extends BasePage {
     public void deleteProject(String projectName) {
         log.info("Removing project with Name '{}'", projectName);
         $(By.xpath(String.format(ACTION_MENU_FOR_PROJECT, projectName))).click();
-        //$(DELETE_BUTTON).click();
         button.clickButton("Remove");
         button.clickButton("Delete project");
-        //$(CONFIRM_DELETE_BUTTON).click();
     }
 
     @Step("Getting validation message text for Project Name field")
