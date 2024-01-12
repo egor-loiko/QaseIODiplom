@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 
 @Log4j2
-public class LoginPage {
+public class LoginPage extends BasePage {
 
     private final String EMAIL_CSS = "[name=email]";
     private final String PASS_CSS = "[name=password]";

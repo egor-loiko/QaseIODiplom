@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 @Log4j2
-public class SuitesPage {
+public class SuitesPage extends BasePage {
 
     private final String SUITE_NAME_IN_LIST = "//a[text()='%s']";
     private final By SUITES_LABEL = By.xpath("//span[text()='Suites']");

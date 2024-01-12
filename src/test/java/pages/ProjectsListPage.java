@@ -13,7 +13,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 
 @Log4j2
-public class ProjectsListPage {
+public class ProjectsListPage extends BasePage {
 
     private final By CREATE_NEW_PROJECT_BUTTON = By.id("createButton");
     private final String PROJECT_NAME_CSS = "[id=project-name]";
@@ -25,7 +25,6 @@ public class ProjectsListPage {
     private final By DELETE_BUTTON = By.xpath("//button[@role='menuitem']");
     private final By CONFIRM_DELETE_BUTTON = By.xpath("//span[text()='Delete project']");
     private final By PROJECTS_LIST = By.xpath("//div[@id='application-content']//tbody//tr//td[3]//a");
-
 
     public void openPage() {
         log.info("Opening Login page '{}'", PropertyReader.getProperty("qaseio.base.url") + "/projects");
@@ -47,13 +46,15 @@ public class ProjectsListPage {
     @Step("Creating new project with Name '{projectName}', Code '{projectCode}' and Description '{description}'")
     public void createNewProject(String projectName, String projectCode, String description) {
         log.info("Creating new project with Name '{}', Code '{}' and Description '{}'", projectName, projectCode, description);
-        $(CREATE_NEW_PROJECT_BUTTON).click();
+        //$(CREATE_NEW_PROJECT_BUTTON).click();
+        button.clickButton("Create new project");
         $(PROJECT_NAME_CSS).sendKeys(projectName);
         $(DESCRIPTION_CSS).sendKeys(description);
         $(PROJECT_CODE_CSS).shouldBe(Condition.visible).click();
         $(PROJECT_CODE_CSS).clear();
         $(PROJECT_CODE_CSS).sendKeys(projectCode);
-        $(CONFIRM_CREATE_PROJECT_BUTTON_CSS).click();
+        //$(CONFIRM_CREATE_PROJECT_BUTTON_CSS).click();
+        button.clickButton("Create project");
     }
 
     @Step("Is project with Name '{projectName} in the list of projects'")
@@ -79,8 +80,10 @@ public class ProjectsListPage {
     public void deleteProject(String projectName) {
         log.info("Removing project with Name '{}'", projectName);
         $(By.xpath(String.format(ACTION_MENU_FOR_PROJECT, projectName))).click();
-        $(DELETE_BUTTON).click();
-        $(CONFIRM_DELETE_BUTTON).click();
+        //$(DELETE_BUTTON).click();
+        button.clickButton("Remove");
+        button.clickButton("Delete project");
+        //$(CONFIRM_DELETE_BUTTON).click();
     }
 
     @Step("Getting validation message text for Project Name field")
