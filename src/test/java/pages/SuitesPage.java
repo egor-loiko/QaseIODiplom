@@ -31,7 +31,6 @@ public class SuitesPage extends BasePage {
     @Step("Opening create new test case page")
     public void openCreateNewCasePage() {
         $(SUITE_PLUS_BUTTON_CSS).click();
-        //$(CREATE_TEST_CASE_BUTTON).click();
         button.clickButton("Create case");
     }
 

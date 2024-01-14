@@ -1,24 +1,25 @@
 package tests;
 
 import models.project.Project;
+import models.suite.Suite;
 import org.testng.annotations.Test;
 
 import static models.project.ProjectFactory.getRandomProject;
+import static models.suite.SuiteFactory.getRandomSuite;
 import static org.testng.Assert.assertEquals;
-import static utils.DataGenerator.generateSuiteName;
 
 public class TestCaseTest extends BaseTest {
 
     @Test(description = "Create new test case")
     public void testCaseShouldBeCreated() {
         Project project = getRandomProject();
-        String suiteName = generateSuiteName();
+        Suite suite = getRandomSuite();
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
         projectsListPage.createNewProject(project);
         projectPage.waitTillProjectCreated();
-        projectPage.createNewSuite(suiteName, "test2", "test1");
+        projectPage.createNewSuite(suite);
         suitesPage.openCreateNewCasePage();
         testCasePage.setCaseTitle("New test Case");
         testCasePage.setDropdownValue("Status", "Draft");

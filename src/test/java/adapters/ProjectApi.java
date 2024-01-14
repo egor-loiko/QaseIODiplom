@@ -39,6 +39,7 @@ public class ProjectApi extends MainAdapter {
                         .statusCode(200)
                         .body("status", equalTo(true))
                         .extract().body().as(ProjectResponseApi.class);
+
         return projectResponseApi.isStatus();
     }
 
@@ -55,7 +56,7 @@ public class ProjectApi extends MainAdapter {
                         .statusCode(200)
                         .body("status", equalTo(true))
                         .extract().body().as(ProjectResponseApi.class);
-        log.info("Project is found {}", projectResponseApi.getResult());
+
         return projectResponseApi.getResult();
     }
 }

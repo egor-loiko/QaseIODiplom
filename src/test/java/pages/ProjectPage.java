@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+import models.suite.Suite;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -29,13 +30,13 @@ public class ProjectPage extends BasePage {
         $(CREATE_NEW_SUITE_BUTTON).shouldBe(Condition.visible);
     }
 
-    @Step("Creating new suite with Name '{projectName}', Description '{suiteDescription}' and Preconditions '{suitePreconditions}'")
-    public void createNewSuite(String suiteName, String suiteDescription, String suitePreconditions) {
-        log.info("Creating new suite with Name '{}', Description '{}' and Preconditions '{}'", suiteName, suiteDescription, suitePreconditions);
+    @Step("Creating new suite with Name '{suite.getTitle()}', Description '{suite.getDescription()}' and Preconditions '{suite.getPreconditions()}'")
+    public void createNewSuite(Suite suite) {
+        log.info("Creating new suite with Name '{}', Description '{}' and Preconditions '{}'", suite.getTitle(), suite.getDescription(), suite.getPreconditions());
         button.clickButton("Suite");
-        $(SUITE_NAME).sendKeys(suiteName);
-        $(SUITE_DESCRIPTION).sendKeys(suiteDescription);
-        $(SUITE_PRECONDITIONS).sendKeys(suitePreconditions);
+        $(SUITE_NAME).sendKeys(suite.getTitle());
+        $(SUITE_DESCRIPTION).sendKeys(suite.getDescription());
+        $(SUITE_PRECONDITIONS).sendKeys(suite.getPreconditions());
         button.clickButton("Create");
     }
 

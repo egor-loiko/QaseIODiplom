@@ -1,6 +1,7 @@
 package tests;
 
 import adapters.ProjectApi;
+import adapters.SuiteApi;
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +25,7 @@ public class BaseTest {
     SuitesPage suitesPage;
     TestCasePage testCasePage;
     ProjectApi projectApi;
+    SuiteApi suiteApi;
 
     String validUser;
     String validPassword;
@@ -52,6 +54,7 @@ public class BaseTest {
         suitesPage = new SuitesPage();
         testCasePage = new TestCasePage();
         projectApi = new ProjectApi();
+        suiteApi = new SuiteApi();
 
         validUser = System.getProperty("user", PropertyReader.getProperty("qaseio.user"));
         validPassword = System.getProperty("password", PropertyReader.getProperty("qaseio.password"));
