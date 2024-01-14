@@ -14,8 +14,12 @@ public class DataGenerator {
     }
 
     public static String generateProjectCode() {
-        String projectCode = faker.name().lastName();
+        String projectCode = faker.name().lastName().toUpperCase();
         return projectCode.length() > 10 ? projectCode.substring(0, projectCodeLimit) : projectCode;
+    }
+
+    public static String generateProjectDescription() {
+        return faker.animal().name() + " " + faker.name().firstName();
     }
 
     public static String generateSuiteName() {

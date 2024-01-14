@@ -1,21 +1,22 @@
 package tests;
 
+import models.project.Project;
 import org.testng.annotations.Test;
 
+import static models.project.ProjectFactory.getRandomProject;
 import static org.testng.Assert.assertEquals;
-import static utils.DataGenerator.*;
+import static utils.DataGenerator.generateSuiteName;
 
 public class TestCaseTest extends BaseTest {
 
     @Test(description = "Create new test case")
     public void testCaseShouldBeCreated() {
-        String projectName = generateProjectName();
-        String projectCode = generateProjectCode();
+        Project project = getRandomProject();
         String suiteName = generateSuiteName();
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(projectName, projectCode, "test description");
+        projectsListPage.createNewProject(project);
         projectPage.waitTillProjectCreated();
         projectPage.createNewSuite(suiteName, "test2", "test1");
         suitesPage.openCreateNewCasePage();

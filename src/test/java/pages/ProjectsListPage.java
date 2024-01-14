@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+import models.project.Project;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.PropertyReader;
@@ -41,14 +42,14 @@ public class ProjectsListPage extends BasePage {
     }
 
     @Step("Creating new project with Name '{projectName}', Code '{projectCode}' and Description '{description}'")
-    public void createNewProject(String projectName, String projectCode, String description) {
-        log.info("Creating new project with Name '{}', Code '{}' and Description '{}'", projectName, projectCode, description);
+    public void createNewProject(Project project) {
+        log.info("Creating new project with Name '{}', Code '{}' and Description '{}'", project.getTitle(), project.getCode(), project.getDescription());
         button.clickButton("Create new project");
-        $(PROJECT_NAME_CSS).sendKeys(projectName);
-        $(DESCRIPTION_CSS).sendKeys(description);
+        $(PROJECT_NAME_CSS).sendKeys(project.getTitle());
+        $(DESCRIPTION_CSS).sendKeys(project.getDescription());
         $(PROJECT_CODE_CSS).shouldBe(Condition.visible).click();
         $(PROJECT_CODE_CSS).clear();
-        $(PROJECT_CODE_CSS).sendKeys(projectCode);
+        $(PROJECT_CODE_CSS).sendKeys(project.getCode());
         button.clickButton("Create project");
     }
 

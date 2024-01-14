@@ -1,58 +1,65 @@
 package tests;
 
+import models.project.Project;
 import org.testng.annotations.Test;
 
+import static models.project.ProjectFactory.*;
 import static org.testng.Assert.*;
-import static utils.DataGenerator.generateProjectCode;
-import static utils.DataGenerator.generateProjectName;
 
 
 public class ProjectTest extends BaseTest {
 
     @Test(description = "Create new project")
     public void projectShouldBeCreated() {
-        String projectName = generateProjectName();
-        String projectCode = generateProjectCode();
+        Project project = getRandomProject();
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(projectName, projectCode, "test description");
+        projectsListPage.createNewProject(project);
         projectPage.waitTillProjectCreated();
-        assertTrue(projectPage.isProjectCreated(projectName), "Project is not created");
+        assertTrue(projectPage.isProjectCreated(project.getTitle()), "Project is not created");
     }
 
     @Test(description = "Create new project with Empty Project name")
     public void projectShouldNotBeCreatedEmptyProjectName() {
-        String projectCode = generateProjectCode();
+        Project project = getProjectWithEmptyTitle();
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject("", projectCode, "test description");
+        projectsListPage.createNewProject(project);
         assertEquals(projectsListPage.gettingProjectNameFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
     }
 
     @Test(description = "Create new project with Empty Project Code")
     public void projectShouldNotBeCreatedEmptyProjectCode() {
-        String projectName = generateProjectName();
+        Project project = getProjectWithEmptyCode();
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(projectName, "", "test description");
+        projectsListPage.createNewProject(project);
         assertEquals(projectsListPage.gettingProjectCodeFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
     }
 
     @Test(description = "Remove existing project")
     public void projectShouldBeDeleted() {
-        String projectName = generateProjectName();
-        String projectCode = generateProjectCode();
+        Project project = getRandomProject();
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(projectName, projectCode, "test description");
+        projectsListPage.createNewProject(project);
         projectPage.waitTillProjectCreated();
         projectsListPage.openPage();
-        projectsListPage.deleteProject(projectName);
-        assertFalse(projectsListPage.isProjectInList(projectName), "Project is not removed");
+        projectsListPage.deleteProject(project.getTitle());
+        assertFalse(projectsListPage.isProjectInList(project.getTitle()), "Project is not removed");
+    }
+
+    @Test
+    public void projectShouldBeCreatedViaApi() {
+        Project project = getRandomProject();
+        assertEquals(projectApi.create(project), project.getCode(), "Project code in not matched");
+        System.out.println(projectApi.getProjectByCode(project.getCode()));
+        assertTrue(projectApi.delete(project.getCode()), "Project is not removed");
+
     }
 
 }
