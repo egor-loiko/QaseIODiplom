@@ -1,9 +1,11 @@
 package tests;
 
+import models.cases.Case;
 import models.project.Project;
 import models.suite.Suite;
 import org.testng.annotations.Test;
 
+import static models.cases.CaseFactory.getRandomCase;
 import static models.project.ProjectFactory.getRandomProject;
 import static models.suite.SuiteFactory.getRandomSuite;
 import static org.testng.Assert.assertEquals;
@@ -42,5 +44,23 @@ public class TestCaseTest extends BaseTest {
         testCasePage.addTcStep("Tenth step name", "Tenth step DATA", "Tenth step EXP RESULT");
         testCasePage.saveTestCase();
         assertEquals(suitesPage.getTestCaseCreationMessageText(), "Test case was created successfully!", "Test case has not been created");
+    }
+
+    @Test
+    public void testCaseShouldBeCreatedViaApi() {
+        Project project = getRandomProject();
+        Suite suite = getRandomSuite();
+        Case cases = getRandomCase();
+        projectApi.create(project);
+        suite.setId(suiteApi.create(project, suite));
+        int testCaseId = caseApi.createForSuite(project,suite, cases);
+        cases.setId(testCaseId);
+        System.out.println(caseApi.getCaseById(project, cases));
+        Case cases1 = getRandomCase();
+        cases1.setId(1);
+        caseApi.updateCaseById(project, cases1);
+        System.out.println(caseApi.getCaseById(project, cases));
+        caseApi.delete(project, cases);
+        projectApi.delete(project.getCode());
     }
 }

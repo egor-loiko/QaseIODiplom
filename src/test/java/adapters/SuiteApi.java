@@ -17,6 +17,7 @@ public class SuiteApi extends MainAdapter {
                 suite.getTitle(), suite.getDescription(), suite.getPreconditions(), project.getCode());
         SuiteResponseApi suiteResponseApi =
                 given()
+                        .log().all()
                         .body(suite)
                         .header("Token", token)
                         .contentType(ContentType.JSON)
@@ -36,6 +37,7 @@ public class SuiteApi extends MainAdapter {
                 suite.getTitle(), suite.getDescription(), suite.getPreconditions(), project.getCode());
         SuiteResponseApi suiteResponseApi =
                 given()
+                        .log().all()
                         .header("Token", token)
                         .contentType(ContentType.JSON)
                         .when()
@@ -54,6 +56,7 @@ public class SuiteApi extends MainAdapter {
                 project.getCode(), suite.getId());
         SuiteResponseApi suiteResponseApi =
                 given()
+                        .log().all()
                         .header("Token", token)
                         .contentType(ContentType.JSON)
                         .when()
@@ -72,6 +75,7 @@ public class SuiteApi extends MainAdapter {
                 project.getCode(), suite.getId());
         SuiteResponseApi suiteResponseApi =
                 given()
+                        .log().all()
                         .body(suite)
                         .header("Token", token)
                         .contentType(ContentType.JSON)

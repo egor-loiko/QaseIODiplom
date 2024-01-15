@@ -7,7 +7,7 @@ public class SuiteFactory {
     public static Suite getRandomSuite() {
         return Suite.builder()
                 .title(generateSuiteName())
-                .description(generateSuiteDescritpion())
+                .description(generateSuiteDescription())
                 .preconditions(generateSuitePreconditions())
                 .build();
     }

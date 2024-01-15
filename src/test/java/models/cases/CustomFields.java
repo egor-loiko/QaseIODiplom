@@ -1,13 +1,15 @@
 package models.cases;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class CaseResponseApi {
-    private boolean status;
-    private Case result;
+@AllArgsConstructor
+public class CustomFields {
+    private int id;
+    private String value;
 }

@@ -1,5 +1,6 @@
 package tests;
 
+import adapters.CaseApi;
 import adapters.ProjectApi;
 import adapters.SuiteApi;
 import com.codeborne.selenide.Configuration;
@@ -26,6 +27,7 @@ public class BaseTest {
     TestCasePage testCasePage;
     ProjectApi projectApi;
     SuiteApi suiteApi;
+    CaseApi caseApi;
 
     String validUser;
     String validPassword;
@@ -55,6 +57,7 @@ public class BaseTest {
         testCasePage = new TestCasePage();
         projectApi = new ProjectApi();
         suiteApi = new SuiteApi();
+        caseApi = new CaseApi();
 
         validUser = System.getProperty("user", PropertyReader.getProperty("qaseio.user"));
         validPassword = System.getProperty("password", PropertyReader.getProperty("qaseio.password"));

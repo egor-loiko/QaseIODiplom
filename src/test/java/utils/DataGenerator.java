@@ -26,11 +26,43 @@ public class DataGenerator {
         return faker.name().lastName();
     }
 
-    public static String generateSuiteDescritpion() {
+    public static String generateSuiteDescription() {
         return faker.animal().name() + " " + faker.name().firstName();
     }
 
     public static String generateSuitePreconditions() {
+        return faker.animal().name() + " " + faker.name().firstName();
+    }
+
+    public static String generateCaseName() {
+        return faker.name().lastName();
+    }
+
+    public static String generateCaseDescription() {
+        return faker.animal().name() + " " + faker.name().firstName();
+    }
+
+    public static String generateCasePreconditions() {
+        return faker.animal().name() + " " + faker.name().firstName();
+    }
+
+    public static String generateCasePostconditions() {
+        return faker.animal().name() + " " + faker.name().firstName();
+    }
+
+    public static int generateRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
+
+    public static String generateStepAction() {
+        return faker.animal().name() + " " + faker.name().firstName();
+    }
+
+    public static String generateStepExpectedResult() {
+        return faker.animal().name() + " " + faker.name().firstName();
+    }
+
+    public static String generateStepData() {
         return faker.animal().name() + " " + faker.name().firstName();
     }
 }
