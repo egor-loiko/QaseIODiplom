@@ -44,9 +44,9 @@ public class Case {
     private String created;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String updated;
-    @JsonProperty("created_at")
+    @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     private String createdAt;
-    @JsonProperty("updated_at")
+    @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
     private String updatedAt;
     private int position;
     @JsonProperty(value = "steps_type", access = JsonProperty.Access.WRITE_ONLY)

@@ -18,6 +18,7 @@ public class ProjectTest extends BaseTest {
         projectsListPage.createNewProject(project);
         projectPage.waitTillProjectCreated();
         assertTrue(projectPage.isProjectCreated(project.getTitle()), "Project is not created");
+        projectApi.delete(project.getCode());
     }
 
     @Test(description = "Create new project with Empty Project name")
@@ -57,7 +58,7 @@ public class ProjectTest extends BaseTest {
     public void projectShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         assertEquals(projectApi.create(project), project.getCode(), "Project code in not matched");
-        System.out.println(projectApi.getProjectByCode(project.getCode()));
+        System.out.println(projectApi.getProjectInfoByCode(project.getCode()));
         assertTrue(projectApi.delete(project.getCode()), "Project is not removed");
 
     }

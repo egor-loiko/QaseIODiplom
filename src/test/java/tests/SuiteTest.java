@@ -28,15 +28,16 @@ public class SuiteTest extends BaseTest {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
         projectApi.create(project);
-        int suiteId = suiteApi.create(project, suite);
+        int suiteId = suiteApi.create(project.getCode(), suite);
         suite.setId(suiteId);
-        suiteApi.getSuiteById(project, suite);
+        suiteApi.getSuiteInfoById(project.getCode(), suiteId);
         suite.setTitle("UpdatedTitle");
         suite.setDescription("UpdatedDescription");
         suite.setPreconditions("UpdatedPreconditions");
-        suiteApi.update(project, suite);
-        suiteApi.getSuiteById(project, suite);
-        suiteApi.delete(project, suite);
+        suiteApi.update(project.getCode(), suite);
+        suiteApi.getSuiteInfoById(project.getCode(), suiteId);
+        suiteApi.delete(project.getCode(), suite);
+        projectApi.delete(project.getCode());
 
     }
 }

@@ -50,17 +50,19 @@ public class TestCaseTest extends BaseTest {
     public void testCaseShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
-        Case cases = getRandomCase();
+        Case testCase = getRandomCase();
         projectApi.create(project);
-        suite.setId(suiteApi.create(project, suite));
-        int testCaseId = caseApi.createForSuite(project,suite, cases);
-        cases.setId(testCaseId);
-        System.out.println(caseApi.getCaseById(project, cases));
-        Case cases1 = getRandomCase();
-        cases1.setId(1);
-        caseApi.updateCaseById(project, cases1);
-        System.out.println(caseApi.getCaseById(project, cases));
-        caseApi.delete(project, cases);
+        int suiteId = suiteApi.create(project.getCode(), suite);
+        suite.setId(suiteId);
+        int testCaseId = caseApi.createForSuite(project.getCode(),suiteId, testCase);
+        testCase.setId(testCaseId);
+        System.out.println(caseApi.getCaseById(project.getCode(), testCase));
+        Case newTestCase = getRandomCase();
+        newTestCase.setId(testCaseId);
+        caseApi.updateCaseById(project.getCode(), newTestCase);
+        System.out.println(caseApi.getCaseById(project.getCode(), newTestCase));
+        caseApi.delete(project.getCode(), testCase);
+        suiteApi.delete(project.getCode(), suite);
         projectApi.delete(project.getCode());
     }
 }

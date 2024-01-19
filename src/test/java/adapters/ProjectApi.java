@@ -27,14 +27,14 @@ public class ProjectApi extends MainAdapter {
         return projectCreateResponseApi.getResult().getCode();
     }
 
-    public boolean delete(String code) {
-        log.info("Removing project with Code '{}' via API", code);
+    public boolean delete(String projectCode) {
+        log.info("Removing project with Code '{}' via API", projectCode);
         ProjectResponseApi projectResponseApi =
                 given()
                         .header("Token", token)
                         .contentType(ContentType.JSON)
                         .when()
-                        .delete(baseApiUrl + "project/" + code)
+                        .delete(baseApiUrl + "project/" + projectCode)
                         .then()
                         .statusCode(200)
                         .body("status", equalTo(true))
@@ -43,14 +43,14 @@ public class ProjectApi extends MainAdapter {
         return projectResponseApi.isStatus();
     }
 
-    public Project getProjectByCode(String code) {
-        log.info("Getting project Info with Code '{}' via API", code);
+    public Project getProjectInfoByCode(String projectCode) {
+        log.info("Getting project Info with Code '{}' via API", projectCode);
         ProjectResponseApi projectResponseApi =
                 given()
                         .header("Token", token)
                         .contentType(ContentType.JSON)
                         .when()
-                        .get(baseApiUrl + "project/" + code)
+                        .get(baseApiUrl + "project/" + projectCode)
                         .then()
                         .log().all()
                         .statusCode(200)
