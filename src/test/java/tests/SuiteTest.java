@@ -10,7 +10,7 @@ import static org.testng.Assert.*;
 
 public class SuiteTest extends BaseTest {
 
-    @Test(description = "Create new Suite")
+    @Test(description = "Create Suite")
     public void suiteShouldBeCreated() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -24,7 +24,7 @@ public class SuiteTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Remove existing Suite")
+    @Test(description = "Remove Suite")
     public void suiteShouldBeRemoved() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -57,7 +57,7 @@ public class SuiteTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Create new Suite via API")
+    @Test(description = "Create Suite via API")
     public void suiteShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();

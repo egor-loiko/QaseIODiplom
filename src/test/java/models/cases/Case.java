@@ -62,5 +62,4 @@ public class Case {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public boolean isToBeAutomated;
 
-
 }

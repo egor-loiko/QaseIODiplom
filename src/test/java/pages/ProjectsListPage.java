@@ -25,12 +25,13 @@ public class ProjectsListPage extends BasePage {
     private final By PROJECTS_LIST = By.xpath("//div[@id='application-content']//tbody//tr//td[3]//a");
     private final By ROWS_PER_PAGE = By.xpath("//label[text()='Rows per page:']");
 
+    @Step("Open Project list page")
     public void openPage() {
         log.info("Opening Projects page '{}'", PropertyReader.getProperty("qaseio.base.url") + "/projects");
         open("/projects");
     }
 
-    @Step("Waiting for page with list of Projects is opened")
+    @Step("Wait for page with list of Projects is opened")
     public void waitTillOpened() {
         log.info("Waiting for page with list of Projects is opened");
         $(CREATE_NEW_PROJECT_BUTTON).shouldBe(Condition.visible);
@@ -42,7 +43,7 @@ public class ProjectsListPage extends BasePage {
         return $(PROJECTS_LABEL).isDisplayed();
     }
 
-    @Step("Creating new project '{project}'")
+    @Step("Create new project '{project}'")
     public void createNewProject(Project project) {
         log.info("Creating new project with Name '{}', Code '{}' and Description '{}'", project.getTitle(), project.getCode(), project.getDescription());
         button.clickButton("Create new project");
@@ -70,7 +71,7 @@ public class ProjectsListPage extends BasePage {
         return false;
     }
 
-    @Step("Opening project with Name '{projectName}'")
+    @Step("Open project with Name '{projectName}'")
     public void openProject(String projectName) {
         log.info("Opening project with Name '{}'", projectName);
         $(byText(projectName)).click();
@@ -84,14 +85,14 @@ public class ProjectsListPage extends BasePage {
         button.clickButton("Delete project");
     }
 
-    @Step("Getting validation message text for Project Name field")
+    @Step("Get validation message text for Project Name field")
     public String gettingProjectNameFieldValidationMessage() {
         String validationMessageText = $(PROJECT_NAME_CSS).getAttribute("validationMessage");
         log.info("Getting validation message text '{}' for Project Name field", validationMessageText);
         return validationMessageText;
     }
 
-    @Step("Getting validation message text for Project Code field")
+    @Step("Get validation message text for Project Code field")
     public String gettingProjectCodeFieldValidationMessage() {
         String validationMessageText = $(PROJECT_CODE_CSS).getAttribute("validationMessage");
         log.info("Getting validation message text '{}' for Project Code field", validationMessageText);

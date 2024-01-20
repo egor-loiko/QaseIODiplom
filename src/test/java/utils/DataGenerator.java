@@ -65,4 +65,5 @@ public class DataGenerator {
     public static String generateStepData() {
         return faker.animal().name() + " " + faker.name().firstName();
     }
+
 }

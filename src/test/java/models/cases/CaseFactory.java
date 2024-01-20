@@ -1,14 +1,19 @@
 package models.cases;
 
+import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
+
 import java.util.ArrayList;
 
 import static models.cases.StepsFactory.getSetOfRandomSteps;
 import static utils.DataGenerator.*;
 
+@Log4j2
 public class CaseFactory {
 
+    @Step("Generate Test Case test data")
     public static Case getRandomCase() {
-
+        log.info("Generating Test Case test data");
         return Case.builder()
                 .id(1)
                 .title(generateCaseName())
@@ -29,4 +34,5 @@ public class CaseFactory {
                 .params(new ArrayList<>())
                 .build();
     }
+
 }

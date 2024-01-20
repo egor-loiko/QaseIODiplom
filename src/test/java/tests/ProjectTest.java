@@ -9,7 +9,7 @@ import static org.testng.Assert.*;
 
 public class ProjectTest extends BaseTest {
 
-    @Test(description = "Create new Project")
+    @Test(description = "Create Project")
     public void projectShouldBeCreated() {
         Project project = getRandomProject();
         loginPage.openPage();
@@ -21,7 +21,7 @@ public class ProjectTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Create new Project with empty project name")
+    @Test(description = "Create Project with empty project name")
     public void projectShouldNotBeCreatedEmptyProjectName() {
         Project project = getProjectWithEmptyTitle();
         loginPage.openPage();
@@ -31,7 +31,7 @@ public class ProjectTest extends BaseTest {
         assertEquals(projectsListPage.gettingProjectNameFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
     }
 
-    @Test(description = "Create new Project with empty project code")
+    @Test(description = "Create Project with empty project code")
     public void projectShouldNotBeCreatedEmptyProjectCode() {
         Project project = getProjectWithEmptyCode();
         loginPage.openPage();
@@ -41,7 +41,7 @@ public class ProjectTest extends BaseTest {
         assertEquals(projectsListPage.gettingProjectCodeFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
     }
 
-    @Test(description = "Remove existing Project")
+    @Test(description = "Remove Project")
     public void projectShouldBeDeleted() {
         Project project = getRandomProject();
         loginPage.openPage();

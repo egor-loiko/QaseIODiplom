@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SuiteResponseApi {
+
     private boolean status;
     private Suite result;
+
 }

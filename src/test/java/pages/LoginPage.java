@@ -33,24 +33,25 @@ public class LoginPage extends BasePage {
         $(SUBMIT_BTN_CSS).click();
     }
 
-    @Step("Getting error message for 'Email' field")
+    @Step("Get error message for 'Email' field")
     public String getEmailErrorMessage() {
         String emailFieldErrorMessage = $(EMAIL_ERROR_MESSAGE).getText();
         log.info("Getting error message '{}' for Email field", emailFieldErrorMessage);
         return emailFieldErrorMessage;
     }
 
-    @Step("Getting error message for 'Password' field")
+    @Step("Get error message for 'Password' field")
     public String getPasswordErrorMessage() {
         String passwordFieldErrorMessage = $(PASSWORD_ERROR_MESSAGE).getText();
         log.info("Getting error message '{}' for Password", passwordFieldErrorMessage);
         return passwordFieldErrorMessage;
     }
 
-    @Step("Getting alert message text")
+    @Step("Get alert message text")
     public String getAlertMessageText() {
         String alertMessageText = $(ALERT_MESSAGE).getText();
         log.info("Getting alert message text '{}' for invalid login", alertMessageText);
         return alertMessageText;
     }
+
 }

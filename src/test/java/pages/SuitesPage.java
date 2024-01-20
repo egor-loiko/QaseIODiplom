@@ -25,7 +25,7 @@ public class SuitesPage extends BasePage {
     private final By TEST_CASES_LIST = By.xpath("//div[@class='WVGvc_ wq7uNh']");
 
 
-    @Step("Checking suite with Name '{suiteName}' is created")
+    @Step("Check suite with Name '{suiteName}' is created")
     public boolean isSuitePresentInList(String suiteName) {
         getWebDriver().navigate().refresh();
         button.waitForButton("Suite");
@@ -38,27 +38,27 @@ public class SuitesPage extends BasePage {
         return false;
     }
 
-    @Step("Opening create new test case page")
+    @Step("Open create new test case page")
     public void openCreateNewTestCasePage() {
         $(SUITE_PLUS_BUTTON_CSS).click();
         button.clickButton("Create case");
     }
 
-    @Step("Getting successful test case creation message text")
+    @Step("Get successful test case creation message text")
     public String getTestCaseCreationMessageText() {
         String alertMessageText = $(ALERT_MESSAGE).getText();
         log.info("Getting message text '{}' for successful Test Case creation", alertMessageText);
         return alertMessageText;
     }
 
-    @Step("Removing suite")
+    @Step("Remove suite")
     public void removeSuite() {
         log.info("Removing suite");
         $(REMOVE_SUITE_ICON_CSS).click();
         button.clickButton("Delete");
     }
 
-    @Step("Opening suite for Editing")
+    @Step("Open suite for Editing")
     public void openSuiteToEdit() {
         log.info("Opening suite for Editing");
         getWebDriver().navigate().refresh();
@@ -78,19 +78,19 @@ public class SuitesPage extends BasePage {
         button.clickButton("Cancel");
     }
 
-    @Step("Getting name of Suite")
+    @Step("Get name of Suite")
     public String getSuiteName() {
         log.info("Getting name of Suite");
         return $(SUITE_NAME).getValue();
     }
 
-    @Step("Getting description of Suite")
+    @Step("Get description of Suite")
     public String getSuiteDescription() {
         log.info("Getting description of Suite");
         return $(SUITE_DESCRIPTION).getOwnText();
     }
 
-    @Step("Getting preconditions of Suite")
+    @Step("Get preconditions of Suite")
     public String getSuitePreconditions() {
         log.info("Getting preconditions of Suite");
         return $(SUITE_PRECONDITIONS).getOwnText();
@@ -105,7 +105,7 @@ public class SuitesPage extends BasePage {
         button.clickButton("Edit");
     }
 
-    @Step("Checking test case with Name '{testCaseName}' is created")
+    @Step("Check test case with Name '{testCaseName}' is created")
     public boolean isTestCasePresentInList(String testCaseName) {
         getWebDriver().navigate().refresh();
         button.waitForButton("Suite");

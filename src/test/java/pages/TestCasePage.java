@@ -11,18 +11,18 @@ public class TestCasePage extends BasePage {
 
     private final String TC_TITLE_CSS = "#title";
 
-    @Step("Setting Title of test case '{tcTitle}'")
+    @Step("Set Title of test case '{tcTitle}'")
     public void setCaseTitle(String tcTitle) {
         log.info("Setting Title of test case '{}'", tcTitle);
         $(TC_TITLE_CSS).sendKeys(tcTitle);
     }
 
-    @Step("Setting value '{value}' in dropdown '{label}' for test case")
+    @Step("Set value '{value}' in dropdown '{label}' for test case")
     public void setDropdownValue(String label, String value) {
         dropdown.selectValue(label, value);
     }
 
-    @Step("Adding Test Case step with Step Action '{stepAction}' Data '{data}' and Expected Result '{expectedResult}'")
+    @Step("Add Test Case step with Step Action '{stepAction}' Data '{data}' and Expected Result '{expectedResult}'")
     public void addTcStep(String stepAction, String data, String expectedResult) {
         log.info("Adding Test Case step with Step Action '{}' Data '{}' and Expected Result '{}'", stepAction, data, expectedResult);
         button.clickButton("Add step");
@@ -31,13 +31,13 @@ public class TestCasePage extends BasePage {
         stepField.fillInStepField("Expected result", expectedResult);
     }
 
-    @Step("Saving Test Case")
+    @Step("Save Test Case")
     public void saveTestCase() {
         log.info("Saving Test Case");
         button.clickButton("Save");
     }
 
-    @Step("Getting test case title")
+    @Step("Get test case title")
     public String getTestCaseTitle() {
         $(TC_TITLE_CSS).shouldBe(Condition.visible);
         return $(TC_TITLE_CSS).getValue();

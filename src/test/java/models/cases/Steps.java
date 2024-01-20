@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Steps {
+
     private String action;
     @JsonProperty("expected_result")
     private String expected_result;
@@ -29,4 +30,5 @@ public class Steps {
     private List<String> attachments;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Steps> steps;
+
 }

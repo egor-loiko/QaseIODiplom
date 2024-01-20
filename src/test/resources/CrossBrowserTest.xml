@@ -10,11 +10,11 @@
             <class name="tests.LoginTest"/>
             <parameter name="browser" value="chrome"></parameter>
         </classes>
-    </test> <!-- Test -->
+    </test>
     <test name="Firefox">
         <classes>
             <class name="tests.ProjectTest"/>
             <parameter name="browser" value="firefox"></parameter>
         </classes>
-    </test> <!-- Test -->
+    </test>
 </suite>

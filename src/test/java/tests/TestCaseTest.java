@@ -12,7 +12,7 @@ import static org.testng.Assert.*;
 
 public class TestCaseTest extends BaseTest {
 
-    @Test(description = "Create new Test Case")
+    @Test(description = "Create Test Case")
     public void testCaseShouldBeCreated() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -47,7 +47,7 @@ public class TestCaseTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Create, update and remove new Test Case via API")
+    @Test(description = "Create, update and remove Test Case via API")
     public void testCaseShouldBeCreatedUpdatedRemovedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -64,7 +64,7 @@ public class TestCaseTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Create new Test Case via API")
+    @Test(description = "Create Test Case via API")
     public void testCaseShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();

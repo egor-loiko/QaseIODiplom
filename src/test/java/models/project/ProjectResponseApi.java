@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectResponseApi {
+
     private boolean status;
     private Project result;
+
 }

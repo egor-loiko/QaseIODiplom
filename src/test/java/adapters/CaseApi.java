@@ -12,40 +12,21 @@ import static org.hamcrest.Matchers.equalTo;
 @Log4j2
 public class CaseApi extends MainAdapter {
 
-    public int createForProject(String projectCode, Case testCase) {
-        log.info("Creating new case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}' via API",
-                testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
-        CaseResponseApi caseResponseApi =
-                given()
-                        .log().all()
-                        .body(testCase)
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
-                        .post(baseApiUrl + "case/" + projectCode)
-                        .then()
-                        .log().all()
-                        .statusCode(200)
-                        .body("status", equalTo(true))
-                        .extract().body().as(CaseResponseApi.class);
-
-        return caseResponseApi.getResult().getId();
-    }
-
+    @Step("[API] Create Test Case for Project with code '{projectCode}' and Suite with id '{suiteId}'")
     public int createForSuite(String projectCode, int suiteId, Case testCase) {
-        log.info("Creating new case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}' via API",
+        log.info("[API] Creating new case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         testCase.setSuiteId(suiteId);
         CaseResponseApi caseResponseApi =
                 given()
-                        .log().all()
                         .body(testCase)
+                        .log().ifValidationFails()
                         .header("Token", token)
                         .contentType(ContentType.JSON)
                         .when()
                         .post(baseApiUrl + "case/" + projectCode)
                         .then()
-                        .log().all()
+                        .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
                         .extract().body().as(CaseResponseApi.class);
@@ -53,18 +34,19 @@ public class CaseApi extends MainAdapter {
         return caseResponseApi.getResult().getId();
     }
 
+    @Step("[API] Get Test Case Info for Project with code '{projectCode}'")
     public Case getCaseById(String projectCode, Case testCase) {
-        log.info("Getting case Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}' via API",
+        log.info("[API] Getting case Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         CaseResponseApi caseResponseApi =
                 given()
-                        .log().all()
+                        .log().ifValidationFails()
                         .header("Token", token)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(baseApiUrl + "case/" + projectCode + "/" + testCase.getId())
                         .then()
-                        .log().all()
+                        .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
                         .extract().body().as(CaseResponseApi.class);
@@ -72,19 +54,20 @@ public class CaseApi extends MainAdapter {
         return caseResponseApi.getResult();
     }
 
-    public int delete(String projectCode, Case cases) {
-        log.info("Removing case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}' via API",
-                cases.getTitle(), cases.getDescription(), cases.getPreconditions(), projectCode);
+    @Step("[API] Remove Test Case for Project with code '{projectCode}'")
+    public int delete(String projectCode, Case testCase) {
+        log.info("[API] Removing case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
+                testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         CaseResponseApi caseResponseApi =
                 given()
-                        .log().all()
-                        .body(cases)
+                        .log().ifValidationFails()
+                        .body(testCase)
                         .header("Token", token)
                         .contentType(ContentType.JSON)
                         .when()
-                        .delete(baseApiUrl + "case/" + projectCode + "/" + cases.getId())
+                        .delete(baseApiUrl + "case/" + projectCode + "/" + testCase.getId())
                         .then()
-                        .log().all()
+                        .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
                         .extract().body().as(CaseResponseApi.class);
@@ -92,20 +75,20 @@ public class CaseApi extends MainAdapter {
         return caseResponseApi.getResult().getId();
     }
 
-    @Step
+    @Step("[API] Update Test Case for Project with code '{projectCode}'")
     public int updateCaseById(String projectCode, Case cases) {
-        log.info("Updating case Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}' via API",
+        log.info("[API] Updating case Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 cases.getTitle(), cases.getDescription(), cases.getPreconditions(), projectCode);
         CaseResponseApi caseResponseApi =
                 given()
-                        .log().all()
+                        .log().ifValidationFails()
                         .body(cases)
                         .header("Token", token)
                         .contentType(ContentType.JSON)
                         .when()
                         .patch(baseApiUrl + "case/" + projectCode + "/" + cases.getId())
                         .then()
-                        .log().all()
+                        .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
                         .extract().body().as(CaseResponseApi.class);

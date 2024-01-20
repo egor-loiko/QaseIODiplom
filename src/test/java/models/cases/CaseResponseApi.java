@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CaseResponseApi {
+
     private boolean status;
     private Case result;
+
 }

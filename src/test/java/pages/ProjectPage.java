@@ -23,18 +23,18 @@ public class ProjectPage extends BasePage {
     private final String PROJECT_DESCRIPTION_CSS = "[id=description-area]";
     private final By PROJECT_SETTINGS_LABEL = By.xpath("//h1[text()='Project settings']");
 
-    @Step("Checking project with Name '{projectName} is created' ")
+    @Step("Check project with Name '{projectName} is created' ")
     public boolean isProjectCreated(String projectName) {
         return !$$(By.xpath(String.format(PROJECT_NAME_LABEL, projectName))).isEmpty();
     }
 
-    @Step("Waiting for project creation")
+    @Step("Wait for project creation")
     public void waitTillProjectCreated() {
         log.info("Waiting for Project creation is finished");
         $(CREATE_NEW_SUITE_BUTTON).shouldBe(Condition.visible);
     }
 
-    @Step("Creating new suite '{suite}'")
+    @Step("Create new suite '{suite}'")
     public void createNewSuite(Suite suite) {
         log.info("Creating new suite with Name '{}', Description '{}' and Preconditions '{}'", suite.getTitle(), suite.getDescription(), suite.getPreconditions());
         button.clickButton("Suite");
@@ -44,31 +44,31 @@ public class ProjectPage extends BasePage {
         button.clickButton("Create");
     }
 
-    @Step("Opening project settings")
+    @Step("Open project settings")
     public void openProjectSettings() {
         log.info("Opening project settings");
         button.clickButton("Settings");
     }
 
-    @Step("Getting name of Project")
+    @Step("Get name of Project")
     public String getProjectName() {
         log.info("Getting name of Project");
         return $(PROJECT_NAME_CSS).getValue();
     }
 
-    @Step("Getting code of Project")
+    @Step("Get code of Project")
     public String getProjectCode() {
         log.info("Getting code of Project");
         return $(PROJECT_CODE_CSS).getValue();
     }
 
-    @Step("Getting description of Project")
+    @Step("Get description of Project")
     public String getProjectDescription() {
         log.info("Getting description of Project");
         return $(PROJECT_DESCRIPTION_CSS).getValue();
     }
 
-    @Step("Waiting for Project settings page is opened")
+    @Step("Wait for Project settings page is opened")
     public void waitTillSettingsOpened() {
         log.info("Waiting for Project settings page is opened");
         $(PROJECT_SETTINGS_LABEL).shouldBe(Condition.visible);

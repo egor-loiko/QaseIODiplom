@@ -20,4 +20,5 @@ public class Button {
         log.info("Waiting for button '{}' appears", buttonName);
         $(By.xpath(String.format(BUTTON_NAME, buttonName))).shouldBe(Condition.visible);
     }
+
 }

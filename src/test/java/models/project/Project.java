@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Project {
+
     private String title;
     private String code;
     private String description;
@@ -18,6 +19,5 @@ public class Project {
     private ProjectCounts counts;
     private ProjectRuns runs;
     private ProjectDefects defects;
-
 
 }
