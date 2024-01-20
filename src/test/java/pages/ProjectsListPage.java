@@ -42,7 +42,7 @@ public class ProjectsListPage extends BasePage {
         return $(PROJECTS_LABEL).isDisplayed();
     }
 
-    @Step("Creating new project with Name '{projectName}', Code '{projectCode}' and Description '{description}'")
+    @Step("Creating new project '{project}'")
     public void createNewProject(Project project) {
         log.info("Creating new project with Name '{}', Code '{}' and Description '{}'", project.getTitle(), project.getCode(), project.getDescription());
         button.clickButton("Create new project");

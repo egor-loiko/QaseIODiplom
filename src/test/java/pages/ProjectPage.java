@@ -34,7 +34,7 @@ public class ProjectPage extends BasePage {
         $(CREATE_NEW_SUITE_BUTTON).shouldBe(Condition.visible);
     }
 
-    @Step("Creating new suite with Name '{suite.getTitle()}', Description '{suite.getDescription()}' and Preconditions '{suite.getPreconditions()}'")
+    @Step("Creating new suite '{suite}'")
     public void createNewSuite(Suite suite) {
         log.info("Creating new suite with Name '{}', Description '{}' and Preconditions '{}'", suite.getTitle(), suite.getDescription(), suite.getPreconditions());
         button.clickButton("Suite");
@@ -51,19 +51,19 @@ public class ProjectPage extends BasePage {
     }
 
     @Step("Getting name of Project")
-    public String getProjectName(){
+    public String getProjectName() {
         log.info("Getting name of Project");
         return $(PROJECT_NAME_CSS).getValue();
     }
 
     @Step("Getting code of Project")
-    public String getProjectCode(){
+    public String getProjectCode() {
         log.info("Getting code of Project");
         return $(PROJECT_CODE_CSS).getValue();
     }
 
     @Step("Getting description of Project")
-    public String getProjectDescription(){
+    public String getProjectDescription() {
         log.info("Getting description of Project");
         return $(PROJECT_DESCRIPTION_CSS).getValue();
     }

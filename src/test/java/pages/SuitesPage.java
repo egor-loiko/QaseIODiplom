@@ -7,29 +7,37 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @Log4j2
 public class SuitesPage extends BasePage {
 
     private final String SUITE_NAME_IN_LIST = "//a[text()='%s']";
     private final By SUITES_LABEL = By.xpath("//span[text()='Suites']");
-    private final String SUITE_PLUS_BUTTON_CSS = "[class='fas fa-plus']";
+    private final String SUITE_PLUS_BUTTON_CSS = ".fas.fa-plus";
     private final By ALERT_MESSAGE = By.xpath("//div[@role='alert']//span/span");
+    private final String REMOVE_SUITE_ICON_CSS = ".far.fa-trash";
+    private final String EDIT_SUITE_ICON_CSS = ".far.fa-pencil";
+    private final By SUITE_NAME = By.id("title");
+    private final By SUITE_DESCRIPTION = By.xpath("//label[text()='Description']/../..//p[@data-nodeid]");
+    private final By SUITE_PRECONDITIONS = By.xpath("//label[text()='Preconditions']/../..//p[@data-nodeid]");
 
 
     @Step("Checking suite with Name '{suiteName}' is created")
-    public boolean isSuiteCreated(String suiteName) {
-        $(SUITES_LABEL).shouldBe(Condition.visible);
+    public boolean isSuitePresentInList(String suiteName) {
+        getWebDriver().navigate().refresh();
+        button.waitForButton("Suite");
+
         if ($$(By.xpath(String.format(SUITE_NAME_IN_LIST, suiteName))).size() != 0) {
-            log.info("Suite with Name '{}' is created", suiteName);
+            log.info("Suite with Name '{}' is present in the list", suiteName);
             return true;
         }
-        log.info("Suite with Name '{}' is NOT created", suiteName);
+        log.info("Suite with Name '{}' is NOT present in the list", suiteName);
         return false;
     }
 
     @Step("Opening create new test case page")
-    public void openCreateNewCasePage() {
+    public void openCreateNewTestCasePage() {
         $(SUITE_PLUS_BUTTON_CSS).click();
         button.clickButton("Create case");
     }
@@ -39,5 +47,50 @@ public class SuitesPage extends BasePage {
         String alertMessageText = $(ALERT_MESSAGE).getText();
         log.info("Getting message text '{}' for successful Test Case creation", alertMessageText);
         return alertMessageText;
+    }
+
+    @Step("Removing suite")
+    public void removeSuite() {
+        log.info("Removing suite");
+        $(REMOVE_SUITE_ICON_CSS).click();
+        button.clickButton("Delete");
+    }
+
+    @Step("Opening suite for Editing")
+    public void openSuiteToEdit() {
+        log.info("Opening suite for Editing");
+        getWebDriver().navigate().refresh();
+        $(EDIT_SUITE_ICON_CSS).shouldBe(Condition.visible);
+        $(EDIT_SUITE_ICON_CSS).click();
+    }
+
+    @Step("Save and close suite Edit window")
+    public void saveEditSuite() {
+        log.info("Save and close suite Edit window");
+        button.clickButton("Save");
+    }
+
+    @Step("Cancel and close suite Edit window")
+    public void cancelEditSuite() {
+        log.info("Cancel and close suite Edit window");
+        button.clickButton("Cancel");
+    }
+
+    @Step("Getting name of Suite")
+    public String getSuiteName() {
+        log.info("Getting name of Suite");
+        return $(SUITE_NAME).getValue();
+    }
+
+    @Step("Getting description of Suite")
+    public String getSuiteDescription() {
+        log.info("Getting description of Suite");
+        return $(SUITE_DESCRIPTION).getOwnText();
+    }
+
+    @Step("Getting preconditions of Suite")
+    public String getSuitePreconditions() {
+        log.info("Getting preconditions of Suite");
+        return $(SUITE_PRECONDITIONS).getOwnText();
     }
 }

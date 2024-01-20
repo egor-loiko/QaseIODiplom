@@ -10,6 +10,7 @@ public class CaseFactory {
     public static Case getRandomCase() {
 
         return Case.builder()
+                .id(1)
                 .title(generateCaseName())
                 .description(generateCaseDescription())
                 .preconditions(generateCasePreconditions())

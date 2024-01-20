@@ -22,7 +22,7 @@ public class TestCaseTest extends BaseTest {
         projectsListPage.createNewProject(project);
         projectPage.waitTillProjectCreated();
         projectPage.createNewSuite(suite);
-        suitesPage.openCreateNewCasePage();
+        suitesPage.openCreateNewTestCasePage();
         testCasePage.setCaseTitle("New test Case");
         testCasePage.setDropdownValue("Status", "Draft");
         testCasePage.setDropdownValue("Severity", "Critical");
@@ -52,13 +52,10 @@ public class TestCaseTest extends BaseTest {
         Suite suite = getRandomSuite();
         Case testCase = getRandomCase();
         projectApi.create(project);
-        int suiteId = suiteApi.create(project.getCode(), suite);
-        suite.setId(suiteId);
-        int testCaseId = caseApi.createForSuite(project.getCode(),suiteId, testCase);
-        testCase.setId(testCaseId);
+        suiteApi.create(project.getCode(), suite);
+        caseApi.createForSuite(project.getCode(), suite.getId(), testCase);
         System.out.println(caseApi.getCaseById(project.getCode(), testCase));
         Case newTestCase = getRandomCase();
-        newTestCase.setId(testCaseId);
         caseApi.updateCaseById(project.getCode(), newTestCase);
         System.out.println(caseApi.getCaseById(project.getCode(), newTestCase));
         caseApi.delete(project.getCode(), testCase);

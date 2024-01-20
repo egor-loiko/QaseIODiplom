@@ -1,5 +1,6 @@
 package wrappers;
 
+import com.codeborne.selenide.Condition;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
@@ -13,5 +14,10 @@ public class Button {
     public void clickButton(String buttonName) {
         log.info("Click on button '{}'", buttonName);
         $(By.xpath(String.format(BUTTON_NAME, buttonName))).click();
+    }
+
+    public void waitForButton(String buttonName) {
+        log.info("Waiting for button '{}' appears", buttonName);
+        $(By.xpath(String.format(BUTTON_NAME, buttonName))).shouldBe(Condition.visible);
     }
 }
