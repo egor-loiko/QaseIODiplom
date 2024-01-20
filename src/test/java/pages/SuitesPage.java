@@ -21,6 +21,8 @@ public class SuitesPage extends BasePage {
     private final By SUITE_NAME = By.id("title");
     private final By SUITE_DESCRIPTION = By.xpath("//label[text()='Description']/../..//p[@data-nodeid]");
     private final By SUITE_PRECONDITIONS = By.xpath("//label[text()='Preconditions']/../..//p[@data-nodeid]");
+    private final String TEST_CASE_NAME_CSS = "//div[@data-suite-body-id]//div[text()='%s']";
+    private final By TEST_CASES_LIST = By.xpath("//div[@class='WVGvc_ wq7uNh']");
 
 
     @Step("Checking suite with Name '{suiteName}' is created")
@@ -93,4 +95,27 @@ public class SuitesPage extends BasePage {
         log.info("Getting preconditions of Suite");
         return $(SUITE_PRECONDITIONS).getOwnText();
     }
+
+    @Step("Open test case with name '{testCaseName}' for Editing")
+    public void openTestCaseForEdit(String testCaseName) {
+        log.info("Opening test case with name '{}' for editing", testCaseName);
+        $(SUITES_LABEL).shouldBe(Condition.visible);
+        $(By.xpath(String.format(TEST_CASE_NAME_CSS, testCaseName))).click();
+        button.waitForButton("Edit");
+        button.clickButton("Edit");
+    }
+
+    @Step("Checking test case with Name '{testCaseName}' is created")
+    public boolean isTestCasePresentInList(String testCaseName) {
+        getWebDriver().navigate().refresh();
+        button.waitForButton("Suite");
+
+        if ($$(TEST_CASES_LIST).size() != 0) {
+            log.info("Test Case with Name '{}' is present in the list", testCaseName);
+            return true;
+        }
+        log.info("Test Case with Name '{}' is NOT present in the list", testCaseName);
+        return false;
+    }
+
 }

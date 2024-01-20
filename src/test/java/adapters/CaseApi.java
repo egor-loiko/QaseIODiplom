@@ -1,5 +1,6 @@
 package adapters;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import lombok.extern.log4j.Log4j2;
 import models.cases.Case;
@@ -91,6 +92,7 @@ public class CaseApi extends MainAdapter {
         return caseResponseApi.getResult().getId();
     }
 
+    @Step
     public int updateCaseById(String projectCode, Case cases) {
         log.info("Updating case Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}' via API",
                 cases.getTitle(), cases.getDescription(), cases.getPreconditions(), projectCode);

@@ -10,7 +10,7 @@ import static org.testng.Assert.*;
 
 public class SuiteTest extends BaseTest {
 
-    @Test(description = "Create new Suite for existing project")
+    @Test(description = "Create new Suite")
     public void suiteShouldBeCreated() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -24,7 +24,7 @@ public class SuiteTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Removing existing Suite for existing project")
+    @Test(description = "Remove existing Suite")
     public void suiteShouldBeRemoved() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -40,7 +40,7 @@ public class SuiteTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Creating and updating Suite via API")
+    @Test(description = "Create, update and remove Suite via API")
     public void suiteShouldBeCreatedAndUpdatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -57,7 +57,7 @@ public class SuiteTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Creating and updating Suite via API")
+    @Test(description = "Create new Suite via API")
     public void suiteShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -74,7 +74,7 @@ public class SuiteTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Creating and updating Suite via API")
+    @Test(description = "Create and update Suite via API")
     public void suiteShouldBeEditedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -98,7 +98,7 @@ public class SuiteTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Creating and removing Suite via API")
+    @Test(description = "Create and remove Suite via API")
     public void suiteShouldBeRemovedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -113,4 +113,5 @@ public class SuiteTest extends BaseTest {
         assertFalse(suitesPage.isSuitePresentInList(suite.getTitle()), "Suite is present in the list");
         projectApi.delete(project.getCode());
     }
+
 }

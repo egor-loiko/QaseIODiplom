@@ -8,11 +8,11 @@ import org.testng.annotations.Test;
 import static models.cases.CaseFactory.getRandomCase;
 import static models.project.ProjectFactory.getRandomProject;
 import static models.suite.SuiteFactory.getRandomSuite;
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class TestCaseTest extends BaseTest {
 
-    @Test(description = "Create new test case")
+    @Test(description = "Create new Test Case")
     public void testCaseShouldBeCreated() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -44,9 +44,27 @@ public class TestCaseTest extends BaseTest {
         testCasePage.addTcStep("Tenth step name", "Tenth step DATA", "Tenth step EXP RESULT");
         testCasePage.saveTestCase();
         assertEquals(suitesPage.getTestCaseCreationMessageText(), "Test case was created successfully!", "Test case has not been created");
+        projectApi.delete(project.getCode());
     }
 
-    @Test
+    @Test(description = "Create, update and remove new Test Case via API")
+    public void testCaseShouldBeCreatedUpdatedRemovedViaApi() {
+        Project project = getRandomProject();
+        Suite suite = getRandomSuite();
+        Case testCase = getRandomCase();
+        projectApi.create(project);
+        suiteApi.create(project.getCode(), suite);
+        caseApi.createForSuite(project.getCode(), suite.getId(), testCase);
+        caseApi.getCaseById(project.getCode(), testCase);
+        Case newTestCase = getRandomCase();
+        caseApi.updateCaseById(project.getCode(), newTestCase);
+        caseApi.getCaseById(project.getCode(), newTestCase);
+        caseApi.delete(project.getCode(), testCase);
+        suiteApi.delete(project.getCode(), suite);
+        projectApi.delete(project.getCode());
+    }
+
+    @Test(description = "Create new Test Case via API")
     public void testCaseShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -54,12 +72,31 @@ public class TestCaseTest extends BaseTest {
         projectApi.create(project);
         suiteApi.create(project.getCode(), suite);
         caseApi.createForSuite(project.getCode(), suite.getId(), testCase);
-        System.out.println(caseApi.getCaseById(project.getCode(), testCase));
-        Case newTestCase = getRandomCase();
-        caseApi.updateCaseById(project.getCode(), newTestCase);
-        System.out.println(caseApi.getCaseById(project.getCode(), newTestCase));
-        caseApi.delete(project.getCode(), testCase);
-        suiteApi.delete(project.getCode(), suite);
+        loginPage.openPage();
+        loginPage.login(validUser, validPassword);
+        projectsListPage.waitTillOpened();
+        projectsListPage.openProject(project.getTitle());
+        suitesPage.openTestCaseForEdit(testCase.getTitle());
+        assertEquals(testCasePage.getTestCaseTitle(), testCase.getTitle(), "Test case Name doesn't match");
         projectApi.delete(project.getCode());
     }
+
+    @Test(description = "Remove Test Case via API")
+    public void testCaseShouldBeRemovedViaApi() {
+        Project project = getRandomProject();
+        Suite suite = getRandomSuite();
+        Case testCase = getRandomCase();
+        projectApi.create(project);
+        suiteApi.create(project.getCode(), suite);
+        caseApi.createForSuite(project.getCode(), suite.getId(), testCase);
+        loginPage.openPage();
+        loginPage.login(validUser, validPassword);
+        projectsListPage.waitTillOpened();
+        projectsListPage.openProject(project.getTitle());
+        assertTrue(suitesPage.isTestCasePresentInList(testCase.getTitle()), "Test case is NOT in the list");
+        caseApi.delete(project.getCode(), testCase);
+        assertFalse(suitesPage.isTestCasePresentInList(testCase.getTitle()), "Test case is in the list");
+        projectApi.delete(project.getCode());
+    }
+
 }

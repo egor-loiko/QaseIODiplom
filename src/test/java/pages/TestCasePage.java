@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 
@@ -34,6 +35,12 @@ public class TestCasePage extends BasePage {
     public void saveTestCase() {
         log.info("Saving Test Case");
         button.clickButton("Save");
+    }
+
+    @Step("Getting test case title")
+    public String getTestCaseTitle() {
+        $(TC_TITLE_CSS).shouldBe(Condition.visible);
+        return $(TC_TITLE_CSS).getValue();
     }
 
 }

@@ -9,7 +9,7 @@ import static org.testng.Assert.*;
 
 public class ProjectTest extends BaseTest {
 
-    @Test(description = "Create new project")
+    @Test(description = "Create new Project")
     public void projectShouldBeCreated() {
         Project project = getRandomProject();
         loginPage.openPage();
@@ -21,7 +21,7 @@ public class ProjectTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Create new project with Empty Project name")
+    @Test(description = "Create new Project with empty project name")
     public void projectShouldNotBeCreatedEmptyProjectName() {
         Project project = getProjectWithEmptyTitle();
         loginPage.openPage();
@@ -31,7 +31,7 @@ public class ProjectTest extends BaseTest {
         assertEquals(projectsListPage.gettingProjectNameFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
     }
 
-    @Test(description = "Create new project with Empty Project Code")
+    @Test(description = "Create new Project with empty project code")
     public void projectShouldNotBeCreatedEmptyProjectCode() {
         Project project = getProjectWithEmptyCode();
         loginPage.openPage();
@@ -41,7 +41,7 @@ public class ProjectTest extends BaseTest {
         assertEquals(projectsListPage.gettingProjectCodeFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
     }
 
-    @Test(description = "Remove existing project")
+    @Test(description = "Remove existing Project")
     public void projectShouldBeDeleted() {
         Project project = getRandomProject();
         loginPage.openPage();
@@ -54,7 +54,7 @@ public class ProjectTest extends BaseTest {
         assertFalse(projectsListPage.isProjectInList(project.getTitle()), "Project is not removed");
     }
 
-    @Test(description = "Create project via API")
+    @Test(description = "Create Project via API")
     public void projectShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         projectApi.create(project);
@@ -70,7 +70,7 @@ public class ProjectTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Remove project via API")
+    @Test(description = "Remove Project via API")
     public void projectShouldBeRemovedViaApi() {
         Project project = getRandomProject();
         loginPage.openPage();
