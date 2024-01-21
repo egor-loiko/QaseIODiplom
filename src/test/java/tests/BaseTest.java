@@ -42,7 +42,7 @@ public class BaseTest {
         } else if (browser.equalsIgnoreCase("firefox")) {
             Configuration.browser = "firefox";
         }
-        Configuration.headless = false;
+        Configuration.headless = true;
         Configuration.timeout = 10000;
         Configuration.holdBrowserOpen = true;
         Configuration.baseUrl = PropertyReader.getProperty("qaseio.base.url");
