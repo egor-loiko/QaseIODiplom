@@ -6,6 +6,9 @@ import adapters.SuiteApi;
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.annotations.*;
 import pages.*;
 import utils.PropertyReader;
@@ -38,9 +41,16 @@ public class BaseTest {
         log.info("Setup '{}' browser", browser);
         if (browser.equalsIgnoreCase("chrome")) {
             Configuration.browser = "chrome";
-
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--lang=en_US");
+            Configuration.browserCapabilities = options;
         } else if (browser.equalsIgnoreCase("firefox")) {
             Configuration.browser = "firefox";
+            FirefoxProfile profile = new FirefoxProfile();
+            FirefoxOptions options = new FirefoxOptions();
+            profile.setPreference("intl.accept_languages", "es");
+            options.setProfile(profile);
+            Configuration.browserCapabilities = options;
         }
         Configuration.headless = true;
         Configuration.timeout = 10000;

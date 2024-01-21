@@ -28,7 +28,7 @@ public class ProjectTest extends BaseTest {
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
         projectsListPage.createNewProject(project);
-        assertEquals(projectsListPage.gettingProjectNameFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
+        assertEquals(projectsListPage.gettingProjectNameFieldValidationMessage(), "Please fill out this field.", "Invalid validation message text");
     }
 
     @Test(description = "Create Project with empty project code")
@@ -38,7 +38,7 @@ public class ProjectTest extends BaseTest {
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
         projectsListPage.createNewProject(project);
-        assertEquals(projectsListPage.gettingProjectCodeFieldValidationMessage(), "Заполните это поле.", "Invalid validation message text");
+        assertEquals(projectsListPage.gettingProjectCodeFieldValidationMessage(), "Please fill out this field.", "Invalid validation message text");
     }
 
     @Test(description = "Remove Project")
