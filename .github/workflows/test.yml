@@ -42,7 +42,7 @@ jobs:
         PASSWORD: ${{ secrets.QASE_PASSWORD }}
         TOKEN: ${{ secrets.QASE_TOKEN }}
     - name: Run Qase Automated tests CrossBrowser
-      run: mvn clean test -Duser=$USER -Dpassword=$PASSWORD -Dtoken=$TOKEN -DsuiteXmlFile='src/test/resources/CrossBrowserTest.xml'
+      run: mvn clean test -DsuiteXmlFile='src/test/resources/CrossBrowserTest.xml' -Duser=$USER -Dpassword=$PASSWORD -Dtoken=$TOKEN
       env:
         USER: ${{ secrets.QASE_USER }}
         PASSWORD: ${{ secrets.QASE_PASSWORD }}
