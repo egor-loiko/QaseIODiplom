@@ -50,8 +50,9 @@ public class ProjectTest extends BaseTest {
         projectsListPage.createNewProject(project);
         projectPage.waitTillProjectCreated();
         projectsListPage.openPage();
+        assertTrue(projectsListPage.isProjectInList(project.getTitle()), "Project is not in the list of projects");
         projectsListPage.deleteProject(project.getTitle());
-        assertFalse(projectsListPage.isProjectInList(project.getTitle()), "Project is not removed");
+        assertFalse(projectsListPage.isProjectInList(project.getTitle()), "Project is in the list of projects");
     }
 
     @Test(description = "Create Project via API")

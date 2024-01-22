@@ -48,7 +48,7 @@ public class BaseTest {
             Configuration.browser = "firefox";
             FirefoxProfile profile = new FirefoxProfile();
             FirefoxOptions options = new FirefoxOptions();
-            profile.setPreference("intl.accept_languages", "en,en-US");
+            profile.setPreference("intl.locale.requested","en-GB");
             options.setProfile(profile);
             Configuration.browserCapabilities = options;
         }

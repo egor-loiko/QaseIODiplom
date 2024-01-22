@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.PropertyReader;
 
+import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -24,6 +25,8 @@ public class ProjectsListPage extends BasePage {
     private final String ACTION_MENU_FOR_PROJECT = "//a[text()='%s']//ancestor::tr//span";
     private final By PROJECTS_LIST = By.xpath("//div[@id='application-content']//tbody//tr//td[3]//a");
     private final By ROWS_PER_PAGE = By.xpath("//label[text()='Rows per page:']");
+    private final By EMPTY_PROJECT_LIST = By.xpath("//div[text()='Looks like you don’t have any projects yet.']");
+    private final By LOADING = By.xpath("//span[@class='loading']");
 
     @Step("Open Project list page")
     public void openPage() {
@@ -60,7 +63,7 @@ public class ProjectsListPage extends BasePage {
     public boolean isProjectInList(String projectName) {
         log.info("Starting of checking is project with Name '{}' in the list of projects", projectName);
         getWebDriver().navigate().refresh();
-        $(ROWS_PER_PAGE).shouldBe(Condition.visible);
+        $(LOADING).should(disappear);
         for (WebElement element : $$(PROJECTS_LIST)) {
             if (element.getText().equals(projectName)) {
                 log.info("Project with Name '{}' is in the list of projects", projectName);
