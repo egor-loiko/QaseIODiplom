@@ -47,8 +47,8 @@ public class BaseTest {
         } else if (browser.equalsIgnoreCase("firefox")) {
             Configuration.browser = "firefox";
             FirefoxProfile profile = new FirefoxProfile();
-            FirefoxOptions options = new FirefoxOptions();
             profile.setPreference("intl.locale.requested","en-GB");
+            FirefoxOptions options = new FirefoxOptions();
             options.setProfile(profile);
             Configuration.browserCapabilities = options;
         }
