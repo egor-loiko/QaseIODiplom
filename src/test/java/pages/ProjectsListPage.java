@@ -49,14 +49,14 @@ public class ProjectsListPage extends BasePage {
     @Step("Create new project '{project}'")
     public void createNewProject(Project project) {
         log.info("Creating new project with Name '{}', Code '{}' and Description '{}'", project.getTitle(), project.getCode(), project.getDescription());
-        button.clickButton("Create new project");
+        button.click("Create new project");
         $(PROJECT_NAME_CSS).sendKeys(project.getTitle());
         $(PROJECT_DESCRIPTION_CSS).sendKeys(project.getDescription());
         $(PROJECT_CODE_CSS).shouldBe(Condition.visible).click();
         $(PROJECT_CODE_CSS).clear();
         $(PROJECT_CODE_CSS).clear();
         $(PROJECT_CODE_CSS).sendKeys(project.getCode());
-        button.clickButton("Create project");
+        button.click("Create project");
     }
 
     @Step("Is project with Name '{projectName} in the list of projects'")
@@ -84,8 +84,8 @@ public class ProjectsListPage extends BasePage {
     public void deleteProject(String projectName) {
         log.info("Removing project with Name '{}'", projectName);
         $(By.xpath(String.format(ACTION_MENU_FOR_PROJECT, projectName))).click();
-        button.clickButton("Remove");
-        button.clickButton("Delete project");
+        button.click("Remove");
+        button.click("Delete project");
     }
 
     @Step("Get validation message text for Project Name field")

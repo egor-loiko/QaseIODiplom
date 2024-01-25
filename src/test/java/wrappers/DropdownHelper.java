@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
-public class Dropdown {
+public class DropdownHelper {
 
     private final String DROPDOWN_LABEL = "//label[text()='%s']//following::div";
     private final String DROPDOWN_VALUE = "//div[text()='%s']";

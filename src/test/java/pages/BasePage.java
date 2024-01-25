@@ -1,13 +1,13 @@
 package pages;
 
-import wrappers.Button;
-import wrappers.Dropdown;
-import wrappers.StepField;
+import wrappers.ButtonHelper;
+import wrappers.DropdownHelper;
+import wrappers.StepFieldHelper;
 
 public class BasePage {
 
-    Button button = new Button();
-    Dropdown dropdown = new Dropdown();
-    StepField stepField = new StepField();
+    ButtonHelper button = new ButtonHelper();
+    DropdownHelper dropdown = new DropdownHelper();
+    StepFieldHelper stepField = new StepFieldHelper();
 
 }

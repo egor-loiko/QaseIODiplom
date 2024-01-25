@@ -37,17 +37,17 @@ public class ProjectPage extends BasePage {
     @Step("Create new suite '{suite}'")
     public void createNewSuite(Suite suite) {
         log.info("Creating new suite with Name '{}', Description '{}' and Preconditions '{}'", suite.getTitle(), suite.getDescription(), suite.getPreconditions());
-        button.clickButton("Suite");
+        button.click("Suite");
         $(SUITE_NAME).sendKeys(suite.getTitle());
         $(SUITE_DESCRIPTION).sendKeys(suite.getDescription());
         $(SUITE_PRECONDITIONS).sendKeys(suite.getPreconditions());
-        button.clickButton("Create");
+        button.click("Create");
     }
 
     @Step("Open project settings")
     public void openProjectSettings() {
         log.info("Opening project settings");
-        button.clickButton("Settings");
+        button.click("Settings");
     }
 
     @Step("Get name of Project")

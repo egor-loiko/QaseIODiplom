@@ -25,16 +25,16 @@ public class TestCasePage extends BasePage {
     @Step("Add Test Case step with Step Action '{stepAction}' Data '{data}' and Expected Result '{expectedResult}'")
     public void addTcStep(String stepAction, String data, String expectedResult) {
         log.info("Adding Test Case step with Step Action '{}' Data '{}' and Expected Result '{}'", stepAction, data, expectedResult);
-        button.clickButton("Add step");
-        stepField.fillInStepField("Step Action", stepAction);
-        stepField.fillInStepField("Data", data);
-        stepField.fillInStepField("Expected result", expectedResult);
+        button.click("Add step");
+        stepField.fill("Step Action", stepAction);
+        stepField.fill("Data", data);
+        stepField.fill("Expected result", expectedResult);
     }
 
     @Step("Save Test Case")
     public void saveTestCase() {
         log.info("Saving Test Case");
-        button.clickButton("Save");
+        button.click("Save");
     }
 
     @Step("Get test case title")

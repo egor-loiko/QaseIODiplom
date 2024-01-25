@@ -44,6 +44,7 @@ public class TestCaseTest extends BaseTest {
         testCasePage.addTcStep("Tenth step name", "Tenth step DATA", "Tenth step EXP RESULT");
         testCasePage.saveTestCase();
         assertEquals(suitesPage.getTestCaseCreationMessageText(), "Test case was created successfully!", "Test case has not been created");
+        assertTrue(suitesPage.isTestCasePresentInList("New test Case"), "Test case is NOT in the list");
         projectApi.delete(project.getCode());
     }
 
