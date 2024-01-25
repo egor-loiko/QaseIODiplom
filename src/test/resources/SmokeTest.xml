@@ -9,12 +9,15 @@
         <classes>
             <class name="tests.LoginTest"/>
             <class name="tests.SuiteTest"/>
+            <class name="tests.SuiteApiTest"/>
         </classes>
     </test>
     <test name="Thread #2">
         <classes>
             <class name="tests.ProjectTest"/>
             <class name="tests.TestCaseTest"/>
+            <class name="tests.ProjectApiTest"/>
+            <class name="tests.TestCaseApiTest"/>
         </classes>
     </test>
 </suite>

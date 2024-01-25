@@ -102,7 +102,6 @@ public class SuitesPage extends BasePage {
         log.info("Opening test case with name '{}' for editing", testCaseName);
         $(SUITES_LABEL).shouldBe(Condition.visible);
         $(By.xpath(String.format(TEST_CASE_NAME_CSS, testCaseName))).click();
-        button.wait("Edit");
         button.click("Edit");
     }
 

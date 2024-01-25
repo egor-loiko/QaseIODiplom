@@ -13,6 +13,7 @@ public class ButtonHelper {
 
     public void click(String buttonName) {
         log.info("Click on button '{}'", buttonName);
+        $(By.xpath(String.format(BUTTON_NAME, buttonName))).shouldBe(Condition.visible);
         $(By.xpath(String.format(BUTTON_NAME, buttonName))).click();
     }
 
