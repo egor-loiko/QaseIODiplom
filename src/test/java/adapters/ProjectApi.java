@@ -77,4 +77,22 @@ public class ProjectApi extends MainAdapter {
         return projectResponseApi.getResult();
     }
 
+    @Step("[API] Get Project error Info with code '{projectCode}'")
+    public String getProjectErrorInfoByCode(String projectCode) {
+        log.info("[API] Getting project error Info with Code '{}'", projectCode);
+        String projectErrorMessage =
+                given()
+                        .log().ifValidationFails()
+                        .header("Token", token)
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(baseApiUrl + "project/" + projectCode)
+                        .then()
+                        .log().ifValidationFails()
+                        .body("status", equalTo(false))
+                        .extract().path("errorMessage");
+
+        return projectErrorMessage;
+    }
+
 }
