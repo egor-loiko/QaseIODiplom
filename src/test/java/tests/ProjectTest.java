@@ -15,9 +15,14 @@ public class ProjectTest extends BaseTest {
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(project);
+        projectsListPage.createProject(project);
         projectPage.waitTillProjectCreated();
         assertTrue(projectPage.isProjectCreated(project.getTitle()), "Project is not created");
+        projectPage.openProjectSettings();
+        projectPage.waitTillSettingsOpened();
+        assertEquals(projectPage.getProjectName(), project.getTitle(), "Name of Project doesn't match");
+        assertEquals(projectPage.getProjectCode(), project.getCode(), "Code of Project doesn't match");
+        assertEquals(projectPage.getProjectDescription(), project.getDescription(), "Description of Project doesn't match");
         projectApi.delete(project.getCode());
     }
 
@@ -27,7 +32,7 @@ public class ProjectTest extends BaseTest {
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(project);
+        projectsListPage.createProject(project);
         assertEquals(projectsListPage.gettingProjectNameFieldValidationMessage(), "Please fill out this field.", "Invalid validation message text");
     }
 
@@ -37,8 +42,30 @@ public class ProjectTest extends BaseTest {
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(project);
+        projectsListPage.createProject(project);
         assertEquals(projectsListPage.gettingProjectCodeFieldValidationMessage(), "Please fill out this field.", "Invalid validation message text");
+    }
+
+    @Test(description = "Update Project")
+    public void projectShouldBeUpdated() {
+        Project project = getRandomProject();
+        Project projectUpdate = getRandomProject();
+        projectApi.create(project);
+        loginPage.openPage();
+        loginPage.login(validUser, validPassword);
+        projectsListPage.waitTillOpened();
+        projectsListPage.openProject(project.getTitle());
+        projectPage.openProjectSettings();
+        projectPage.waitTillSettingsOpened();
+        projectPage.updateProject(projectUpdate);
+        projectsListPage.openPage();
+        projectsListPage.openProject(projectUpdate.getTitle());
+        projectPage.openProjectSettings();
+        projectPage.waitTillSettingsOpened();
+        assertEquals(projectPage.getProjectName(), projectUpdate.getTitle(), "Name of Project doesn't match");
+        assertEquals(projectPage.getProjectCode(), projectUpdate.getCode(), "Code of Project doesn't match");
+        assertEquals(projectPage.getProjectDescription(), projectUpdate.getDescription(), "Description of Project doesn't match");
+        projectApi.delete(projectUpdate.getCode());
     }
 
     @Test(description = "Remove Project")
@@ -47,7 +74,7 @@ public class ProjectTest extends BaseTest {
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(project);
+        projectsListPage.createProject(project);
         projectPage.waitTillProjectCreated();
         projectsListPage.openPage();
         assertTrue(projectsListPage.isProjectInList(project.getTitle()), "Project is not in the list of projects");

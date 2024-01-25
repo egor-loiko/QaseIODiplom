@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+import models.project.Project;
 import models.suite.Suite;
 import org.openqa.selenium.By;
 
@@ -72,6 +73,18 @@ public class ProjectPage extends BasePage {
     public void waitTillSettingsOpened() {
         log.info("Waiting for Project settings page is opened");
         $(PROJECT_SETTINGS_LABEL).shouldBe(Condition.visible);
+    }
+
+    @Step("Update project '{project}'")
+    public void updateProject(Project project) {
+        log.info("Updating project with Name '{}', Code '{}' and Description '{}'", project.getTitle(), project.getCode(), project.getDescription());
+        $(PROJECT_NAME_CSS).clear();
+        $(PROJECT_NAME_CSS).sendKeys(project.getTitle());
+        $(PROJECT_CODE_CSS).clear();
+        $(PROJECT_CODE_CSS).sendKeys(project.getCode());
+        $(PROJECT_DESCRIPTION_CSS).clear();
+        $(PROJECT_DESCRIPTION_CSS).sendKeys(project.getDescription());
+        button.click("Update settings");
     }
 
 }

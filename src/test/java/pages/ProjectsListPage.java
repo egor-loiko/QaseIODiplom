@@ -47,7 +47,7 @@ public class ProjectsListPage extends BasePage {
     }
 
     @Step("Create new project '{project}'")
-    public void createNewProject(Project project) {
+    public void createProject(Project project) {
         log.info("Creating new project with Name '{}', Code '{}' and Description '{}'", project.getTitle(), project.getCode(), project.getDescription());
         button.click("Create new project");
         $(PROJECT_NAME_CSS).sendKeys(project.getTitle());

@@ -17,7 +17,7 @@ public class SuiteTest extends BaseTest {
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(project);
+        projectsListPage.createProject(project);
         projectPage.waitTillProjectCreated();
         projectPage.createNewSuite(suite);
         assertTrue(suitesPage.isSuitePresentInList(suite.getTitle()), "Suite is not created");
@@ -31,7 +31,7 @@ public class SuiteTest extends BaseTest {
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
-        projectsListPage.createNewProject(project);
+        projectsListPage.createProject(project);
         projectPage.waitTillProjectCreated();
         projectPage.createNewSuite(suite);
         assertTrue(suitesPage.isSuitePresentInList(suite.getTitle()), "Suite is NOT present in the list");
