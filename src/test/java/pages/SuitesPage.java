@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+import models.suite.Suite;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -17,11 +18,11 @@ public class SuitesPage extends BasePage {
     private final By SUITES_LABEL = By.xpath("//span[text()='Suites']");
     private final String SUITE_PLUS_BUTTON_CSS = ".fas.fa-plus";
     private final By ALERT_MESSAGE = By.xpath("//div[@role='alert']//span/span");
-    private final String REMOVE_SUITE_ICON_CSS = ".far.fa-trash";
-    private final String EDIT_SUITE_ICON_CSS = ".far.fa-pencil";
+    private final String REMOVE_SUITE_ICON_CSS = "//span[text()='%s']/parent::h3//i[@class='far fa-trash']";
+    private final String EDIT_SUITE_ICON_CSS = "//span[text()='%s']/parent::h3//i[@class='far fa-pencil']";
     private final By SUITE_NAME = By.id("title");
-    private final By SUITE_DESCRIPTION = By.xpath("//label[text()='Description']/../..//p[@data-nodeid]");
-    private final By SUITE_PRECONDITIONS = By.xpath("//label[text()='Preconditions']/../..//p[@data-nodeid]");
+    private final By SUITE_DESCRIPTION = By.xpath("//label[text()='Description']/../..//p[@class]");
+    private final By SUITE_PRECONDITIONS = By.xpath("//label[text()='Preconditions']/../..//p[@class]");
     private final String TEST_CASE_NAME_CSS = "//div[@data-suite-body-id]//div[text()='%s']";
     private final By TEST_CASES_LIST = By.xpath("//div[@data-suite-body-id]/div[5]");
 
@@ -52,19 +53,19 @@ public class SuitesPage extends BasePage {
         return alertMessageText;
     }
 
-    @Step("Remove suite")
-    public void removeSuite() {
-        log.info("Removing suite");
-        $(REMOVE_SUITE_ICON_CSS).click();
+    @Step("Remove suite with name '{suiteName}'")
+    public void removeSuite(String suiteName) {
+        log.info("Removing suite with name '{}'", suiteName);
+        $(By.xpath(String.format(REMOVE_SUITE_ICON_CSS, suiteName))).click();
         button.click("Delete");
     }
 
-    @Step("Open suite for Editing")
-    public void openSuiteToEdit() {
-        log.info("Opening suite for Editing");
+    @Step("Open suite with name '{suiteName}' for Editing")
+    public void openSuiteToEdit(String suiteName) {
+        log.info("Opening suite with name '{}' for Editing", suiteName);
         getWebDriver().navigate().refresh();
-        $(EDIT_SUITE_ICON_CSS).shouldBe(Condition.visible);
-        $(EDIT_SUITE_ICON_CSS).click();
+        $(By.xpath(String.format(EDIT_SUITE_ICON_CSS, suiteName))).shouldBe(Condition.visible);
+        $(By.xpath(String.format(EDIT_SUITE_ICON_CSS, suiteName))).click();
     }
 
     @Step("Save and close suite Edit window")
@@ -118,6 +119,18 @@ public class SuitesPage extends BasePage {
         }
         log.info("Test Case with Name '{}' is NOT present in the list", testCaseName);
         return false;
+    }
+
+    @Step("Update suite '{suite}'")
+    public void updateSuite(Suite suite) {
+        log.info("Updating suite with Name '{}', Description '{}' and Preconditions '{}'", suite.getTitle(), suite.getDescription(), suite.getPreconditions());
+        $(SUITE_NAME).clear();
+        $(SUITE_NAME).sendKeys(suite.getTitle());
+        $(SUITE_DESCRIPTION).clear();
+        $(SUITE_DESCRIPTION).sendKeys(suite.getDescription());
+        $(SUITE_PRECONDITIONS).clear();
+        $(SUITE_PRECONDITIONS).sendKeys(suite.getPreconditions());
+        button.click("Save");
     }
 
 }

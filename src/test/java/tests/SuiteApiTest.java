@@ -37,7 +37,7 @@ public class SuiteApiTest extends BaseTest {
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
         projectsListPage.openProject(project.getTitle());
-        suitesPage.openSuiteToEdit();
+        suitesPage.openSuiteToEdit(suite.getTitle());
         assertEquals(suitesPage.getSuiteName(), suite.getTitle(), "Name of Suite doesn't match");
         assertEquals(suitesPage.getSuiteDescription(), suite.getDescription(), "Description of Suite doesn't match");
         assertEquals(suitesPage.getSuitePreconditions(), suite.getPreconditions(), "Preconditions of Suite doesn't match");
@@ -54,14 +54,14 @@ public class SuiteApiTest extends BaseTest {
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
         projectsListPage.openProject(project.getTitle());
-        suitesPage.openSuiteToEdit();
+        suitesPage.openSuiteToEdit(suite.getTitle());
         assertEquals(suitesPage.getSuiteName(), suite.getTitle(), "Name of Suite doesn't match");
         assertEquals(suitesPage.getSuiteDescription(), suite.getDescription(), "Description of Suite doesn't match");
         assertEquals(suitesPage.getSuitePreconditions(), suite.getPreconditions(), "Preconditions of Suite doesn't match");
         suitesPage.cancelEditSuite();
         Suite newSuite = getRandomSuite();
         suiteApi.update(project.getCode(), newSuite);
-        suitesPage.openSuiteToEdit();
+        suitesPage.openSuiteToEdit(newSuite.getTitle());
         assertEquals(suitesPage.getSuiteName(), newSuite.getTitle(), "Name of Suite doesn't match");
         assertEquals(suitesPage.getSuiteDescription(), newSuite.getDescription(), "Description of Suite doesn't match");
         assertEquals(suitesPage.getSuitePreconditions(), newSuite.getPreconditions(), "Preconditions of Suite doesn't match");
