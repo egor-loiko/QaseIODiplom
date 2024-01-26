@@ -80,6 +80,25 @@ public class SuiteApi extends MainAdapter {
         return suiteResponseApi.getResult();
     }
 
+    @Step("[API] Get Suite error Info for project with code '{projectCode}'")
+    public String getSuiteErrorInfoById(String projectCode, int suiteId) {
+        log.info("[API] Getting suite error Info with Project code '{}' and Suite ID '{}'",
+                projectCode, suiteId);
+        String suiteErrorMessage =
+                given()
+                        .log().ifValidationFails()
+                        .header("Token", token)
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(baseApiUrl + "suite/" + projectCode + "/" + suiteId)
+                        .then()
+                        .log().ifValidationFails()
+                        .body("status", equalTo(false))
+                        .extract().path("errorMessage");
+
+        return suiteErrorMessage;
+    }
+
     @Step("[API] Update Suite for project with code '{projectCode}'")
     public Suite update(String projectCode, Suite suite) {
         log.info("[API] Updating suite Info with Project code '{}' and Suite ID '{}'",
