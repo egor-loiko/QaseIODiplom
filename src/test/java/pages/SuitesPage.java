@@ -25,6 +25,7 @@ public class SuitesPage extends BasePage {
     private final By SUITE_PRECONDITIONS = By.xpath("//label[text()='Preconditions']/../..//p[@class]");
     private final String TEST_CASE_NAME_CSS = "//div[@data-suite-body-id]//div[text()='%s']";
     private final By TEST_CASES_LIST = By.xpath("//div[@data-suite-body-id]/div[5]");
+    private final By TEST_CASE_DELETE_CONFIRM = By.xpath("//span[normalize-space(text())='Delete']/ancestor::button[@type='button']");
 
 
     @Step("Check suite with Name '{suiteName}' is created")
@@ -104,6 +105,15 @@ public class SuitesPage extends BasePage {
         $(SUITES_LABEL).shouldBe(Condition.visible);
         $(By.xpath(String.format(TEST_CASE_NAME_CSS, testCaseName))).click();
         button.click("Edit");
+    }
+
+    @Step("Delete test case with name '{testCaseName}'")
+    public void deleleTestCase(String testCaseName) {
+        log.info("Opening test case with name '{}' for editing", testCaseName);
+        $(SUITES_LABEL).shouldBe(Condition.visible);
+        $(By.xpath(String.format(TEST_CASE_NAME_CSS, testCaseName))).click();
+        button.click("Delete");
+        $(TEST_CASE_DELETE_CONFIRM).click();
     }
 
     @Step("Check test case with Name '{testCaseName}' is created")

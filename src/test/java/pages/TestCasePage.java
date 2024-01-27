@@ -14,12 +14,18 @@ public class TestCasePage extends BasePage {
     @Step("Set Title of test case '{tcTitle}'")
     public void setCaseTitle(String tcTitle) {
         log.info("Setting Title of test case '{}'", tcTitle);
+        $(TC_TITLE_CSS).clear();
         $(TC_TITLE_CSS).sendKeys(tcTitle);
     }
 
     @Step("Set value '{value}' in dropdown '{label}' for test case")
     public void setDropdownValue(String label, String value) {
         dropdown.selectValue(label, value);
+    }
+
+    @Step("Get value from dropdown '{label}' for test case")
+    public String getDropdownValue(String label) {
+        return dropdown.getValue(label);
     }
 
     @Step("Add Test Case step with Step Action '{stepAction}' Data '{data}' and Expected Result '{expectedResult}'")
