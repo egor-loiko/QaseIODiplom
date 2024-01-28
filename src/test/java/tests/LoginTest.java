@@ -8,7 +8,7 @@ import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends BaseTest {
 
-    @Test(description = "User should be logged in")
+    @Test(description = "Successful login")
     public void successfulLogin() {
         loginPage.openPage();
         loginPage.login(validUser, validPassword);
@@ -51,4 +51,5 @@ public class LoginTest extends BaseTest {
         loginPage.login("test@test.com", validPassword);
         assertEquals(loginPage.getAlertMessageText(), "These credentials do not match our records.", "No Alert for invalid email");
     }
+
 }

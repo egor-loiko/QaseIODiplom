@@ -7,14 +7,19 @@
     </listeners>
     <test name="Chrome">
         <classes>
-            <class name="tests.LoginTest"/>
+            <class name="tests.SuiteTest"/>
+            <class name="tests.TestCaseTest"/>
+            <class name="tests.SuiteApiTest"/>
+            <class name="tests.TestCaseApiTest"/>
             <parameter name="browser" value="chrome"></parameter>
         </classes>
-    </test> <!-- Test -->
+    </test>
     <test name="Firefox">
         <classes>
+            <class name="tests.LoginTest"/>
             <class name="tests.ProjectTest"/>
+            <class name="tests.ProjectApiTest"/>
             <parameter name="browser" value="firefox"></parameter>
         </classes>
-    </test> <!-- Test -->
+    </test>
 </suite>

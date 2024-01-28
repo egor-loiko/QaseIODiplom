@@ -65,4 +65,5 @@ public class TestListener implements ITestListener {
         log.info("Screenshot has been taken");
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
+
 }
