@@ -108,7 +108,7 @@ public class SuitesPage extends BasePage {
     }
 
     @Step("Delete test case with name '{testCaseName}'")
-    public void deleleTestCase(String testCaseName) {
+    public void deleteTestCase(String testCaseName) {
         log.info("Opening test case with name '{}' for editing", testCaseName);
         $(SUITES_LABEL).shouldBe(Condition.visible);
         $(By.xpath(String.format(TEST_CASE_NAME_CSS, testCaseName))).click();
