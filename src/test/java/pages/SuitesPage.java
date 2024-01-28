@@ -16,13 +16,13 @@ public class SuitesPage extends BasePage {
 
     private final String SUITE_NAME_IN_LIST = "//a[text()='%s']";
     private final By SUITES_LABEL = By.xpath("//span[text()='Suites']");
-    private final String SUITE_PLUS_BUTTON_CSS = ".fas.fa-plus";
+    private final String SUITE_PLUS_BUTTON = "//span[text()='%s']/parent::h3//i[@class='fas fa-plus']";
     private final By ALERT_MESSAGE = By.xpath("//div[@role='alert']//span/span");
-    private final String REMOVE_SUITE_ICON_CSS = "//span[text()='%s']/parent::h3//i[@class='far fa-trash']";
-    private final String EDIT_SUITE_ICON_CSS = "//span[text()='%s']/parent::h3//i[@class='far fa-pencil']";
+    private final String REMOVE_SUITE_ICON = "//span[text()='%s']/parent::h3//i[@class='far fa-trash']";
+    private final String EDIT_SUITE_ICON = "//span[text()='%s']/parent::h3//i[@class='far fa-pencil']";
     private final By SUITE_NAME = By.id("title");
-    private final By SUITE_DESCRIPTION = By.xpath("//label[text()='Description']/../..//p[@class]");
-    private final By SUITE_PRECONDITIONS = By.xpath("//label[text()='Preconditions']/../..//p[@class]");
+    private final By SUITE_DESCRIPTION = By.xpath("//label[text()='Description']/ancestor::div[2]//p[@class]");
+    private final By SUITE_PRECONDITIONS = By.xpath("//label[text()='Preconditions']/ancestor::div[2]//p[@class]");
     private final String TEST_CASE_NAME_CSS = "//div[@data-suite-body-id]//div[text()='%s']";
     private final By TEST_CASES_LIST = By.xpath("//div[@data-suite-body-id]/div[5]");
     private final By TEST_CASE_DELETE_CONFIRM = By.xpath("//span[normalize-space(text())='Delete']/ancestor::button[@type='button']");
@@ -41,9 +41,10 @@ public class SuitesPage extends BasePage {
         return false;
     }
 
-    @Step("Open create new test case page")
-    public void openCreateNewTestCasePage() {
-        $(SUITE_PLUS_BUTTON_CSS).click();
+    @Step("Open create new test case page for suite '{suiteName}'")
+    public void openCreateNewTestCasePage(String suiteName) {
+        log.info("Opening create new Test Case page for suite '{}'", suiteName);
+        $(By.xpath(String.format(SUITE_PLUS_BUTTON, suiteName))).click();
         button.click("Create case");
     }
 
@@ -57,7 +58,7 @@ public class SuitesPage extends BasePage {
     @Step("Remove suite with name '{suiteName}'")
     public void removeSuite(String suiteName) {
         log.info("Removing suite with name '{}'", suiteName);
-        $(By.xpath(String.format(REMOVE_SUITE_ICON_CSS, suiteName))).click();
+        $(By.xpath(String.format(REMOVE_SUITE_ICON, suiteName))).click();
         button.click("Delete");
     }
 
@@ -65,8 +66,8 @@ public class SuitesPage extends BasePage {
     public void openSuiteToEdit(String suiteName) {
         log.info("Opening suite with name '{}' for Editing", suiteName);
         getWebDriver().navigate().refresh();
-        $(By.xpath(String.format(EDIT_SUITE_ICON_CSS, suiteName))).shouldBe(Condition.visible);
-        $(By.xpath(String.format(EDIT_SUITE_ICON_CSS, suiteName))).click();
+        $(By.xpath(String.format(EDIT_SUITE_ICON, suiteName))).shouldBe(Condition.visible);
+        $(By.xpath(String.format(EDIT_SUITE_ICON, suiteName))).click();
     }
 
     @Step("Save and close suite Edit window")

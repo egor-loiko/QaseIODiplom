@@ -23,7 +23,7 @@ public class TestCaseTest extends BaseTest {
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
         projectsListPage.openProject(project.getTitle());
-        suitesPage.openCreateNewTestCasePage();
+        suitesPage.openCreateNewTestCasePage(suite.getTitle());
         testCasePage.createTestCase(testCase);
         assertEquals(suitesPage.getTestCaseCreationMessageText(), "Test case was created successfully!", "Test case has not been created");
         assertTrue(suitesPage.isTestCasePresentInList(testCase.getTitle()), "Test case is NOT in the list");
@@ -44,7 +44,7 @@ public class TestCaseTest extends BaseTest {
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
         projectsListPage.openProject(project.getTitle());
-        suitesPage.openCreateNewTestCasePage();
+        suitesPage.openCreateNewTestCasePage(suite.getTitle());
         testCasePage.createTestCase(testCase);
         suitesPage.openTestCaseForEdit(testCase.getTitle());
         testCasePage.updateTestCase(testCaseUpdate);
@@ -64,7 +64,7 @@ public class TestCaseTest extends BaseTest {
         loginPage.login(validUser, validPassword);
         projectsListPage.waitTillOpened();
         projectsListPage.openProject(project.getTitle());
-        suitesPage.openCreateNewTestCasePage();
+        suitesPage.openCreateNewTestCasePage(suite.getTitle());
         testCasePage.createTestCase(testCase);
         assertEquals(suitesPage.getTestCaseCreationMessageText(), "Test case was created successfully!", "Test case has not been created");
         assertTrue(suitesPage.isTestCasePresentInList(testCase.getTitle()), "Test case is NOT in the list");

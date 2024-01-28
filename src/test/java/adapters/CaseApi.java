@@ -17,8 +17,8 @@ public class CaseApi extends MainAdapter {
     ObjectMapper mapper = new ObjectMapper();
 
     @Step("[API] Create Test Case for Project with code '{projectCode}' and Suite with id '{suiteId}'")
-    public int createForSuite(String projectCode, int suiteId, Case testCase) {
-        log.info("[API] Creating new case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
+    public int create(String projectCode, int suiteId, Case testCase) {
+        log.info("[API] Creating Test Case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         testCase.setSuiteId(suiteId);
         ResponseApi<Case> caseResponseApi = mapper.convertValue(
@@ -40,8 +40,8 @@ public class CaseApi extends MainAdapter {
     }
 
     @Step("[API] Get Test Case Info for Project with code '{projectCode}'")
-    public Case getCaseById(String projectCode, Case testCase) {
-        log.info("[API] Getting case Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
+    public Case getCaseInfoById(String projectCode, Case testCase) {
+        log.info("[API] Getting Test Case Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         ResponseApi<Case> caseResponseApi = mapper.convertValue(
                 given()
@@ -60,9 +60,28 @@ public class CaseApi extends MainAdapter {
         return caseResponseApi.getResult();
     }
 
+    @Step("[API] Get Test Case Error Info for Project with code '{projectCode}'")
+    public String getCaseErrorInfoById(String projectCode, Case testCase) {
+        log.info("[API] Getting Test Case Error Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
+                testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
+        String caseErrorMessage =
+                given()
+                        .log().ifValidationFails()
+                        .header("Token", token)
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(baseApiUrl + "case/" + projectCode + "/" + testCase.getId())
+                        .then()
+                        .log().ifValidationFails()
+                        .body("status", equalTo(false))
+                        .extract().path("errorMessage");
+
+        return caseErrorMessage;
+    }
+
     @Step("[API] Remove Test Case for Project with code '{projectCode}'")
     public int delete(String projectCode, Case testCase) {
-        log.info("[API] Removing case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
+        log.info("[API] Removing Test Case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         ResponseApi<Case> caseResponseApi = mapper.convertValue(
                 given()
@@ -84,7 +103,7 @@ public class CaseApi extends MainAdapter {
 
     @Step("[API] Update Test Case for Project with code '{projectCode}'")
     public int updateCaseById(String projectCode, Case cases) {
-        log.info("[API] Updating case Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
+        log.info("[API] Updating Test Case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 cases.getTitle(), cases.getDescription(), cases.getPreconditions(), projectCode);
         ResponseApi<Case> caseResponseApi = mapper.convertValue(
                 given()

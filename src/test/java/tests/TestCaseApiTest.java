@@ -12,23 +12,6 @@ import static org.testng.Assert.*;
 
 public class TestCaseApiTest extends BaseTest {
 
-    @Test(description = "Create, update and remove Test Case via API")
-    public void testCaseShouldBeCreatedUpdatedRemovedViaApi() {
-        Project project = getRandomProject();
-        Suite suite = getRandomSuite();
-        Case testCase = getRandomCase();
-        projectApi.create(project);
-        suiteApi.create(project.getCode(), suite);
-        caseApi.createForSuite(project.getCode(), suite.getId(), testCase);
-        caseApi.getCaseById(project.getCode(), testCase);
-        Case newTestCase = getRandomCase();
-        caseApi.updateCaseById(project.getCode(), newTestCase);
-        caseApi.getCaseById(project.getCode(), newTestCase);
-        caseApi.delete(project.getCode(), testCase);
-        suiteApi.delete(project.getCode(), suite);
-        projectApi.delete(project.getCode());
-    }
-
     @Test(description = "Create Test Case via API")
     public void testCaseShouldBeCreatedViaApi() {
         Project project = getRandomProject();
@@ -36,13 +19,30 @@ public class TestCaseApiTest extends BaseTest {
         Case testCase = getRandomCase();
         projectApi.create(project);
         suiteApi.create(project.getCode(), suite);
-        caseApi.createForSuite(project.getCode(), suite.getId(), testCase);
-        loginPage.openPage();
-        loginPage.login(validUser, validPassword);
-        projectsListPage.waitTillOpened();
-        projectsListPage.openProject(project.getTitle());
-        suitesPage.openTestCaseForEdit(testCase.getTitle());
-        assertEquals(testCasePage.getTestCaseTitle(), testCase.getTitle(), "Test case Name doesn't match");
+        caseApi.create(project.getCode(), suite.getId(), testCase);
+        Case testCaseCreated = caseApi.getCaseInfoById(project.getCode(), testCase);
+        assertEquals(testCaseCreated.getTitle(), testCase.getTitle(), "Test case Name doesn't match");
+        assertEquals(testCaseCreated.getPreconditions(), testCase.getPreconditions(), "Test case Preconditions doesn't match");
+        assertEquals(testCaseCreated.getPostconditions(), testCase.getPostconditions(), "Test case Postconditions doesn't match");
+        assertEquals(testCaseCreated.getStatus(), testCase.getStatus(), "Test case Status doesn't match");
+        projectApi.delete(project.getCode());
+    }
+
+    @Test(description = "Update Test Case via API")
+    public void testCaseShouldBeUpdatedViaApi() {
+        Project project = getRandomProject();
+        Suite suite = getRandomSuite();
+        Case testCase = getRandomCase();
+        projectApi.create(project);
+        suiteApi.create(project.getCode(), suite);
+        caseApi.create(project.getCode(), suite.getId(), testCase);
+        Case newTestCase = getRandomCase();
+        caseApi.updateCaseById(project.getCode(), newTestCase);
+        Case testCaseUpdated = caseApi.getCaseInfoById(project.getCode(), newTestCase);
+        assertEquals(testCaseUpdated.getTitle(), newTestCase.getTitle(), "Test case Name doesn't match");
+        assertEquals(testCaseUpdated.getPreconditions(), newTestCase.getPreconditions(), "Test case Preconditions doesn't match");
+        assertEquals(testCaseUpdated.getPostconditions(), newTestCase.getPostconditions(), "Test case Postconditions doesn't match");
+        assertEquals(testCaseUpdated.getStatus(), newTestCase.getStatus(), "Test case Status doesn't match");
         projectApi.delete(project.getCode());
     }
 
@@ -53,14 +53,11 @@ public class TestCaseApiTest extends BaseTest {
         Case testCase = getRandomCase();
         projectApi.create(project);
         suiteApi.create(project.getCode(), suite);
-        caseApi.createForSuite(project.getCode(), suite.getId(), testCase);
-        loginPage.openPage();
-        loginPage.login(validUser, validPassword);
-        projectsListPage.waitTillOpened();
-        projectsListPage.openProject(project.getTitle());
-        assertTrue(suitesPage.isTestCasePresentInList(testCase.getTitle()), "Test case is NOT in the list");
+        caseApi.create(project.getCode(), suite.getId(), testCase);
+        Case testCaseCreated = caseApi.getCaseInfoById(project.getCode(), testCase);
+        assertEquals(testCaseCreated.getTitle(), testCase.getTitle(), "Test case Name doesn't match");
         caseApi.delete(project.getCode(), testCase);
-        assertFalse(suitesPage.isTestCasePresentInList(testCase.getTitle()), "Test case is in the list");
+        assertEquals(caseApi.getCaseErrorInfoById(project.getCode(), testCase), "TestCase not found", "Test Case is NOT removed");
         projectApi.delete(project.getCode());
     }
 
