@@ -26,14 +26,18 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult iTestResult) {
         log.info("======================================== FINISHED TEST {} Duration: {} ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult));
-        takeScreenshot(getWebDriver());
+        if (!iTestResult.getName().contains("Api")) {
+            takeScreenshot(getWebDriver());
+        }
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         log.info("======================================== FAILED TEST {} Duration: {} ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult));
-        takeScreenshot(getWebDriver());
+        if (!iTestResult.getName().contains("Api")) {
+            takeScreenshot(getWebDriver());
+        }
     }
 
     @Override
