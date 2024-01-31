@@ -2,7 +2,6 @@ package tests;
 
 import models.project.Project;
 import org.testng.annotations.Test;
-import utils.Retry;
 
 import static models.project.ProjectFactory.*;
 import static org.testng.Assert.*;
@@ -10,7 +9,7 @@ import static org.testng.Assert.*;
 
 public class ProjectTest extends BaseTest {
 
-    @Test(description = "Create Project", retryAnalyzer = Retry.class)
+    @Test(description = "Create Project")
     public void projectShouldBeCreated() {
         Project project = getRandomProject();
         loginPage.openPage();
@@ -27,7 +26,7 @@ public class ProjectTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Create Project with empty project name", retryAnalyzer = Retry.class)
+    @Test(description = "Create Project with empty project name")
     public void projectShouldNotBeCreatedEmptyProjectName() {
         Project project = getProjectWithEmptyTitle();
         loginPage.openPage();
@@ -37,7 +36,7 @@ public class ProjectTest extends BaseTest {
         assertEquals(projectsListPage.gettingProjectNameFieldValidationMessage(), "Please fill out this field.", "Invalid validation message text");
     }
 
-    @Test(description = "Create Project with empty project code", retryAnalyzer = Retry.class)
+    @Test(description = "Create Project with empty project code")
     public void projectShouldNotBeCreatedEmptyProjectCode() {
         Project project = getProjectWithEmptyCode();
         loginPage.openPage();
@@ -47,7 +46,7 @@ public class ProjectTest extends BaseTest {
         assertEquals(projectsListPage.gettingProjectCodeFieldValidationMessage(), "Please fill out this field.", "Invalid validation message text");
     }
 
-    @Test(description = "Update Project", retryAnalyzer = Retry.class)
+    @Test(description = "Update Project")
     public void projectShouldBeUpdated() {
         Project project = getRandomProject();
         Project projectUpdate = getRandomProject();
@@ -69,7 +68,7 @@ public class ProjectTest extends BaseTest {
         projectApi.delete(projectUpdate.getCode());
     }
 
-    @Test(description = "Remove Project", retryAnalyzer = Retry.class)
+    @Test(description = "Remove Project")
     public void projectShouldBeDeleted() {
         Project project = getRandomProject();
         loginPage.openPage();

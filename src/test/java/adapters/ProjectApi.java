@@ -7,6 +7,8 @@ import lombok.extern.log4j.Log4j2;
 import models.project.Project;
 import models.response.ResponseApi;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.Matchers.equalTo;
 
 @Log4j2
@@ -75,6 +77,23 @@ public class ProjectApi extends MainAdapter {
                         .extract().path("errorMessage");
 
         return projectErrorMessage;
+    }
+
+    @Step("[API] Remove all projects")
+    public void removeAllProjects() {
+        log.info("[API] Removing all projects");
+        ArrayList<String> codesList = request
+                .get(baseApiUrl + "/project?limit=100&offset=0")
+                .then()
+                .log().ifValidationFails()
+                .statusCode(200)
+                .body("status", equalTo(true)).extract().path("result.entities.code");
+
+        if (!codesList.isEmpty()) {
+            for (String code : codesList) {
+                delete(code);
+            }
+        }
     }
 
 }

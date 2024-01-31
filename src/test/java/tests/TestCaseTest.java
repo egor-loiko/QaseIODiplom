@@ -4,7 +4,6 @@ import models.cases.Case;
 import models.project.Project;
 import models.suite.Suite;
 import org.testng.annotations.Test;
-import utils.Retry;
 
 import static models.cases.CaseFactory.getRandomCase;
 import static models.project.ProjectFactory.getRandomProject;
@@ -13,7 +12,7 @@ import static org.testng.Assert.*;
 
 public class TestCaseTest extends BaseTest {
 
-    @Test(description = "Create Test Case", retryAnalyzer = Retry.class)
+    @Test(description = "Create Test Case")
     public void testCaseShouldBeCreated() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -33,7 +32,7 @@ public class TestCaseTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Update Test Case", retryAnalyzer = Retry.class)
+    @Test(description = "Update Test Case")
     public void testCaseShouldBeUpdated() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -54,7 +53,7 @@ public class TestCaseTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Remove Test Case", retryAnalyzer = Retry.class)
+    @Test(description = "Remove Test Case")
     public void testCaseShouldBeRemoved() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();

@@ -3,15 +3,14 @@ package tests;
 import models.project.Project;
 import models.suite.Suite;
 import org.testng.annotations.Test;
-import utils.Retry;
 
 import static models.project.ProjectFactory.getRandomProject;
 import static models.suite.SuiteFactory.getRandomSuite;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class SuiteApiTest extends BaseApiTest {
 
-    @Test(description = "Create Suite via API", retryAnalyzer = Retry.class)
+    @Test(description = "Create Suite via API")
     public void suiteShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -24,7 +23,7 @@ public class SuiteApiTest extends BaseApiTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Update Suite via API", retryAnalyzer = Retry.class)
+    @Test(description = "Update Suite via API")
     public void suiteShouldBeUpdatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -43,7 +42,7 @@ public class SuiteApiTest extends BaseApiTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Remove Suite via API", retryAnalyzer = Retry.class)
+    @Test(description = "Remove Suite via API")
     public void suiteShouldBeRemovedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
