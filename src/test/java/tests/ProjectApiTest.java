@@ -2,13 +2,14 @@ package tests;
 
 import models.project.Project;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static models.project.ProjectFactory.getRandomProject;
 import static org.testng.Assert.*;
 
-public class ProjectApiTest extends BaseTest {
+public class ProjectApiTest extends BaseApiTest {
 
-    @Test(description = "Create Project via API")
+    @Test(description = "Create Project via API", retryAnalyzer = Retry.class)
     public void projectShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         projectApi.create(project);
@@ -18,7 +19,7 @@ public class ProjectApiTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Remove Project via API")
+    @Test(description = "Remove Project via API", retryAnalyzer = Retry.class)
     public void projectShouldBeRemovedViaApi() {
         Project project = getRandomProject();
         projectApi.create(project);

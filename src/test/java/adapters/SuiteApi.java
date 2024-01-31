@@ -3,12 +3,10 @@ package adapters;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
-import io.restassured.http.ContentType;
 import lombok.extern.log4j.Log4j2;
 import models.response.ResponseApi;
 import models.suite.Suite;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 @Log4j2
@@ -21,18 +19,15 @@ public class SuiteApi extends MainAdapter {
         log.info("[API] Creating new suite with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 suite.getTitle(), suite.getDescription(), suite.getPreconditions(), projectCode);
         ResponseApi<Suite> suiteResponseApi = mapper.convertValue(
-                given()
-                        .log().ifValidationFails()
+                request
                         .body(suite)
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
                         .when()
                         .post(baseApiUrl + "suite/" + projectCode)
                         .then()
                         .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
-                        .extract().body().as(ResponseApi.class), new TypeReference<ResponseApi<Suite>>() {
+                        .extract().body().as(ResponseApi.class), new TypeReference<>() {
                 });
 
         return suiteResponseApi.getResult().getId();
@@ -43,17 +38,13 @@ public class SuiteApi extends MainAdapter {
         log.info("[API] Removing suite with Name '{}', Description '{}' and Preconditions '{}' from project with Code '{}'",
                 suite.getTitle(), suite.getDescription(), suite.getPreconditions(), projectCode);
         ResponseApi<Suite> suiteResponseApi = mapper.convertValue(
-                given()
-                        .log().ifValidationFails()
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
+                request
                         .delete(baseApiUrl + "suite/" + projectCode + "/" + suite.getId())
                         .then()
                         .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
-                        .extract().body().as(ResponseApi.class), new TypeReference<ResponseApi<Suite>>() {
+                        .extract().body().as(ResponseApi.class), new TypeReference<>() {
                 });
 
         return suiteResponseApi.getResult().getId();
@@ -64,17 +55,13 @@ public class SuiteApi extends MainAdapter {
         log.info("[API] Getting suite Info with Project code '{}' and Suite ID '{}'",
                 projectCode, suiteId);
         ResponseApi<Suite> suiteResponseApi = mapper.convertValue(
-                given()
-                        .log().ifValidationFails()
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
+                request
                         .get(baseApiUrl + "suite/" + projectCode + "/" + suiteId)
                         .then()
                         .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
-                        .extract().body().as(ResponseApi.class), new TypeReference<ResponseApi<Suite>>() {
+                        .extract().body().as(ResponseApi.class), new TypeReference<>() {
                 });
 
         return suiteResponseApi.getResult();
@@ -85,11 +72,7 @@ public class SuiteApi extends MainAdapter {
         log.info("[API] Getting suite error Info with Project code '{}' and Suite ID '{}'",
                 projectCode, suiteId);
         String suiteErrorMessage =
-                given()
-                        .log().ifValidationFails()
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
+                request
                         .get(baseApiUrl + "suite/" + projectCode + "/" + suiteId)
                         .then()
                         .log().ifValidationFails()
@@ -104,18 +87,14 @@ public class SuiteApi extends MainAdapter {
         log.info("[API] Updating suite Info with Project code '{}' and Suite ID '{}'",
                 projectCode, suite.getId());
         ResponseApi<Suite> suiteResponseApi = mapper.convertValue(
-                given()
-                        .log().ifValidationFails()
+                request
                         .body(suite)
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
                         .patch(baseApiUrl + "suite/" + projectCode + "/" + suite.getId())
                         .then()
                         .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
-                        .extract().body().as(ResponseApi.class), new TypeReference<ResponseApi<Suite>>() {
+                        .extract().body().as(ResponseApi.class), new TypeReference<>() {
                 });
 
         return suiteResponseApi.getResult();

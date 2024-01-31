@@ -4,7 +4,6 @@ import io.qameta.allure.Attachment;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -26,14 +25,18 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult iTestResult) {
         log.info("======================================== FINISHED TEST {} Duration: {} ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult));
-        takeScreenshot(getWebDriver());
+        if (!iTestResult.getName().contains("Api")) {
+            takeScreenshot();
+        }
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         log.info("======================================== FAILED TEST {} Duration: {} ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult));
-        takeScreenshot(getWebDriver());
+        if (!iTestResult.getName().contains("Api")) {
+            takeScreenshot();
+        }
     }
 
     @Override
@@ -61,9 +64,9 @@ public class TestListener implements ITestListener {
     }
 
     @Attachment(value = "screenshot", type = "image/png")
-    private byte[] takeScreenshot(WebDriver driver) {
+    private byte[] takeScreenshot() {
         log.info("Screenshot has been taken");
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
 }
