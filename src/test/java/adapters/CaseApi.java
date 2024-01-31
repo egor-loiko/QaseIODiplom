@@ -3,12 +3,10 @@ package adapters;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
-import io.restassured.http.ContentType;
 import lombok.extern.log4j.Log4j2;
 import models.cases.Case;
 import models.response.ResponseApi;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 @Log4j2
@@ -22,18 +20,14 @@ public class CaseApi extends MainAdapter {
                 testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         testCase.setSuiteId(suiteId);
         ResponseApi<Case> caseResponseApi = mapper.convertValue(
-                given()
+                request
                         .body(testCase)
-                        .log().ifValidationFails()
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
                         .post(baseApiUrl + "case/" + projectCode)
                         .then()
                         .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
-                        .extract().body().as(ResponseApi.class), new TypeReference<ResponseApi<Case>>() {
+                        .extract().body().as(ResponseApi.class), new TypeReference<>() {
                 });
 
         return caseResponseApi.getResult().getId();
@@ -44,17 +38,13 @@ public class CaseApi extends MainAdapter {
         log.info("[API] Getting Test Case Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         ResponseApi<Case> caseResponseApi = mapper.convertValue(
-                given()
-                        .log().ifValidationFails()
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
+                request
                         .get(baseApiUrl + "case/" + projectCode + "/" + testCase.getId())
                         .then()
                         .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
-                        .extract().body().as(ResponseApi.class), new TypeReference<ResponseApi<Case>>() {
+                        .extract().body().as(ResponseApi.class), new TypeReference<>() {
                 });
 
         return caseResponseApi.getResult();
@@ -65,11 +55,7 @@ public class CaseApi extends MainAdapter {
         log.info("[API] Getting Test Case Error Info with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         String caseErrorMessage =
-                given()
-                        .log().ifValidationFails()
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
+                request
                         .get(baseApiUrl + "case/" + projectCode + "/" + testCase.getId())
                         .then()
                         .log().ifValidationFails()
@@ -84,18 +70,14 @@ public class CaseApi extends MainAdapter {
         log.info("[API] Removing Test Case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 testCase.getTitle(), testCase.getDescription(), testCase.getPreconditions(), projectCode);
         ResponseApi<Case> caseResponseApi = mapper.convertValue(
-                given()
-                        .log().ifValidationFails()
+                request
                         .body(testCase)
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
                         .delete(baseApiUrl + "case/" + projectCode + "/" + testCase.getId())
                         .then()
                         .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
-                        .extract().body().as(ResponseApi.class), new TypeReference<ResponseApi<Case>>() {
+                        .extract().body().as(ResponseApi.class), new TypeReference<>() {
                 });
 
         return caseResponseApi.getResult().getId();
@@ -106,18 +88,14 @@ public class CaseApi extends MainAdapter {
         log.info("[API] Updating Test Case with Name '{}', Description '{}' and Preconditions '{}' for project with Code '{}'",
                 cases.getTitle(), cases.getDescription(), cases.getPreconditions(), projectCode);
         ResponseApi<Case> caseResponseApi = mapper.convertValue(
-                given()
-                        .log().ifValidationFails()
+                request
                         .body(cases)
-                        .header("Token", token)
-                        .contentType(ContentType.JSON)
-                        .when()
                         .patch(baseApiUrl + "case/" + projectCode + "/" + cases.getId())
                         .then()
                         .log().ifValidationFails()
                         .statusCode(200)
                         .body("status", equalTo(true))
-                        .extract().body().as(ResponseApi.class), new TypeReference<ResponseApi<Case>>() {
+                        .extract().body().as(ResponseApi.class), new TypeReference<>() {
                 });
 
         return caseResponseApi.getResult().getId();
