@@ -58,7 +58,7 @@ public class Case {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String deleted;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    public int isManual;
+    public boolean isManual;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public boolean isToBeAutomated;
 
