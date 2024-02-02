@@ -3,7 +3,6 @@ package tests;
 import models.project.Project;
 import models.suite.Suite;
 import org.testng.annotations.Test;
-import utils.Retry;
 
 import static models.project.ProjectFactory.getRandomProject;
 import static models.suite.SuiteFactory.getRandomSuite;
@@ -11,7 +10,7 @@ import static org.testng.Assert.*;
 
 public class SuiteTest extends BaseTest {
 
-    @Test(description = "Create Suite", retryAnalyzer = Retry.class)
+    @Test(description = "Create Suite")
     public void suiteShouldBeCreated() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -29,7 +28,7 @@ public class SuiteTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Update Suite", retryAnalyzer = Retry.class)
+    @Test(description = "Update Suite")
     public void suiteShouldBeUpdated() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -50,7 +49,7 @@ public class SuiteTest extends BaseTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Remove Suite", retryAnalyzer = Retry.class)
+    @Test(description = "Remove Suite")
     public void suiteShouldBeRemoved() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();

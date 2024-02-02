@@ -4,16 +4,15 @@ import models.cases.Case;
 import models.project.Project;
 import models.suite.Suite;
 import org.testng.annotations.Test;
-import utils.Retry;
 
 import static models.cases.CaseFactory.getRandomCase;
 import static models.project.ProjectFactory.getRandomProject;
 import static models.suite.SuiteFactory.getRandomSuite;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class TestCaseApiTest extends BaseApiTest {
 
-    @Test(description = "Create Test Case via API", retryAnalyzer = Retry.class)
+    @Test(description = "Create Test Case via API")
     public void testCaseShouldBeCreatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -29,7 +28,7 @@ public class TestCaseApiTest extends BaseApiTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Update Test Case via API", retryAnalyzer = Retry.class)
+    @Test(description = "Update Test Case via API")
     public void testCaseShouldBeUpdatedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();
@@ -47,7 +46,7 @@ public class TestCaseApiTest extends BaseApiTest {
         projectApi.delete(project.getCode());
     }
 
-    @Test(description = "Remove Test Case via API", retryAnalyzer = Retry.class)
+    @Test(description = "Remove Test Case via API")
     public void testCaseShouldBeRemovedViaApi() {
         Project project = getRandomProject();
         Suite suite = getRandomSuite();

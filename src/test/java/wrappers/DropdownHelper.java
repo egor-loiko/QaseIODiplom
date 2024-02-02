@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.actions;
 
 @Log4j2
 public class DropdownHelper {
@@ -16,8 +17,9 @@ public class DropdownHelper {
     public void selectValue(String label, String value) {
         log.info("Setting value '{}' in dropdown '{}' for test case", value, label);
         $(By.xpath(String.format(DROPDOWN_LABEL, label))).shouldBe(Condition.visible);
-        $(By.xpath(String.format(DROPDOWN_LABEL, label))).click();
-        $(By.xpath(String.format(DROPDOWN_VALUE, value))).click();
+        actions().click($(By.xpath(String.format(DROPDOWN_LABEL, label)))).perform();
+        $(By.xpath(String.format(DROPDOWN_VALUE, value))).shouldBe(Condition.visible);
+        actions().click($(By.xpath(String.format(DROPDOWN_VALUE, value)))).perform();
     }
 
     public String getValue(String label) {

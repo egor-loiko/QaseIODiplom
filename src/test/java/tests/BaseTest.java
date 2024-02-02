@@ -35,6 +35,13 @@ public class BaseTest {
     String validUser;
     String validPassword;
 
+    @BeforeSuite
+    public void clean() {
+        log.info("Clean old test data");
+        projectApi = new ProjectApi();
+        projectApi.removeAllProjects();
+    }
+
     @Parameters({"browser"})
     @BeforeMethod(description = "Browser setup")
     public void setup(@Optional("chrome") String browser) {
@@ -47,7 +54,7 @@ public class BaseTest {
         } else if (browser.equalsIgnoreCase("firefox")) {
             Configuration.browser = "firefox";
             FirefoxProfile profile = new FirefoxProfile();
-            profile.setPreference("intl.locale.requested","en-GB");
+            profile.setPreference("intl.locale.requested", "en-GB");
             FirefoxOptions options = new FirefoxOptions();
             options.setProfile(profile);
             Configuration.browserCapabilities = options;
