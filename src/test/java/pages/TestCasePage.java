@@ -98,15 +98,52 @@ public class TestCasePage extends BasePage {
     @Step("Verify test case '{testCase}' filled correctly")
     public boolean isTestCaseVerified(Case testCase) {
         log.info("Verifying if Test Case with name '{}' filled correctly", testCase.getTitle());
-        return getTestCaseTitle().equals(testCase.getTitle()) &&
-                getDropdownValue("Status").equals(Status.values()[testCase.getStatus()].getName()) &&
-                getDropdownValue("Severity").equals(Severity.values()[testCase.getSeverity()].getName()) &&
-                getDropdownValue("Priority").equals(Priority.values()[testCase.getPriority()].getName()) &&
-                getDropdownValue("Type").equals(Type.values()[testCase.getType()].getName()) &&
-                getDropdownValue("Layer").equals(Layer.values()[testCase.getLayer()].getName()) &&
-                getDropdownValue("Is flaky").equals(IsFlaky.values()[testCase.getIsFlaky()].getName()) &&
-                getDropdownValue("Behavior").equals(Behavior.values()[testCase.getBehavior()].getName()) &&
-                getDropdownValue("Automation status").equals(Automation.values()[testCase.getAutomation()].getName());
+        if (!getTestCaseTitle().equals(testCase.getTitle())) {
+            log.error("Validation of Test case 'Title' if failed");
+            return false;
+        }
+
+        if (!getDropdownValue("Status").equals(Status.values()[testCase.getStatus()].getName())) {
+            log.error("Validation of Test case 'Status' dropdown if failed");
+            return false;
+        }
+
+        if (!getDropdownValue("Severity").equals(Severity.values()[testCase.getSeverity()].getName())) {
+            log.error("Validation of Test case 'Severity' dropdown if failed");
+            return false;
+        }
+
+        if (!getDropdownValue("Priority").equals(Priority.values()[testCase.getPriority()].getName())) {
+            log.error("Validation of Test case 'Priority' dropdown if failed");
+            return false;
+        }
+
+        if (!getDropdownValue("Type").equals(Type.values()[testCase.getType()].getName())) {
+            log.error("Validation of Test case 'Type' dropdown if failed");
+            return false;
+        }
+
+        if (!getDropdownValue("Layer").equals(Layer.values()[testCase.getLayer()].getName())) {
+            log.error("Validation of Test case 'Layer' dropdown if failed");
+            return false;
+        }
+
+        if (!getDropdownValue("Is flaky").equals(IsFlaky.values()[testCase.getIsFlaky()].getName())) {
+            log.error("Validation of Test case 'Is flaky' dropdown if failed");
+            return false;
+        }
+
+        if (!getDropdownValue("Behavior").equals(Behavior.values()[testCase.getBehavior()].getName())) {
+            log.error("Validation of Test case 'Behavior' dropdown if failed");
+            return false;
+        }
+
+        if (!getDropdownValue("Automation status").equals(Automation.values()[testCase.getAutomation()].getName())) {
+            log.error("Validation of Test case 'Automation status' dropdown if failed");
+            return false;
+        }
+
+        return true;
     }
 
 }
